@@ -35,10 +35,7 @@ final class TodoListView: BaseView {
         $0.rowHeight = 100
         $0.register(TodoListTableViewCell.self, forCellReuseIdentifier: TodoListTableViewCell.id)
     }
-    
-    override func willMove(toWindow newWindow: UIWindow?) {
-        print(#function)
-    }
+
     private lazy var addNewTodoButton = UIButton().then {
         $0.setTitle(" 새로운 할 일", for: .normal)
         $0.setTitleColor(.systemBlue, for: .normal)
