@@ -10,25 +10,25 @@ import SnapKit
 import Then
 import RealmSwift
 
-class TodoListView: BaseView {
+final class TodoListView: BaseView {
     
     var delegate: TodoListViewDelegate?
     
-    let realm = try! Realm()
+    private let realm = try! Realm()
     var todoList: Results<TodoListTable>! {
         didSet {
             todoListTableView.reloadData()
         }
     }
     
-    let todoTitleLabel = UILabel().then {
+    private let todoTitleLabel = UILabel().then {
         $0.text = "전체"
         $0.font = Font.bold30
         $0.textColor = .systemBlue
     }
     
     // TODO: estimated 왜않되.. ㅡ.ㅡ
-    lazy var todoListTableView = UITableView().then {
+    private lazy var todoListTableView = UITableView().then {
         $0.backgroundColor = .black
         $0.delegate = self
         $0.dataSource = self
@@ -39,7 +39,7 @@ class TodoListView: BaseView {
     override func willMove(toWindow newWindow: UIWindow?) {
         print(#function)
     }
-    lazy var addNewTodoButton = UIButton().then {
+    private lazy var addNewTodoButton = UIButton().then {
         $0.setTitle(" 새로운 할 일", for: .normal)
         $0.setTitleColor(.systemBlue, for: .normal)
         $0.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)

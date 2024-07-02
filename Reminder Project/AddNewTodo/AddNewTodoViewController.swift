@@ -16,20 +16,20 @@ protocol AddNewTodoViewControllerDelegate: AnyObject {
     func dismissAddNewTodoViewController()
 }
 
-class AddNewTodoViewController: BaseViewController {
+final class AddNewTodoViewController: BaseViewController {
     
     weak var delegate: AddNewTodoViewControllerDelegate?
     
-    let nameTextField = UITextField().then {
+    private let nameTextField = UITextField().then {
         $0.placeholder = "제목"
     }
-    let separartorLine = UIView().then {
+    private let separartorLine = UIView().then {
         $0.backgroundColor = #colorLiteral(red: 0.2156859636, green: 0.2156865597, blue: 0.2285700738, alpha: 1)
     }
-    let memoTextField = UITextField().then {
+    private let memoTextField = UITextField().then {
         $0.placeholder = "메모"
     }
-    lazy var textFieldStackView = UIStackView().then {
+    private lazy var textFieldStackView = UIStackView().then {
         $0.axis = .vertical
         $0.alignment = .fill
         $0.distribution = .fillProportionally
@@ -42,17 +42,17 @@ class AddNewTodoViewController: BaseViewController {
         $0.backgroundColor = #colorLiteral(red: 0.1725487709, green: 0.1725491583, blue: 0.1811430752, alpha: 1)
     }
     
-    let deadlineTextField = UITextField().then {
+    private let deadlineTextField = UITextField().then {
         $0.placeholder = "마감일"
         $0.backgroundColor = #colorLiteral(red: 0.1725487709, green: 0.1725491583, blue: 0.1811430752, alpha: 1)
     }
-    let tagEditButton = EditButtonView().then {
+    private let tagEditButton = EditButtonView().then {
         $0.text = "  태그"
     }
-    let priorityEditButton = EditButtonView().then {
+    private let priorityEditButton = EditButtonView().then {
         $0.text = "  우선 순위"
     }
-    let imageEditButton = EditButtonView().then {
+    private let imageEditButton = EditButtonView().then {
         $0.text = "  이미지 추가"
     }
     
@@ -104,8 +104,6 @@ class AddNewTodoViewController: BaseViewController {
             make.top.equalTo(priorityEditButton.snp.bottom).offset(20)
             make.height.equalTo(textFieldStackView).multipliedBy(0.3)
         }
-        
-        
     }
     
     // TODO: 메서드로 만들고 싶은데.. 셀렉터 떔에 안됨
@@ -123,8 +121,8 @@ class AddNewTodoViewController: BaseViewController {
             style: .plain,
             target: self,
             action: #selector(addButtonTapped))
-        navigationItem.leftBarButtonItems = [cancel]
-        navigationItem.rightBarButtonItems = [add]
+        navigationItem.leftBarButtonItem = cancel
+        navigationItem.rightBarButtonItem = add
     }
     
     @objc
@@ -143,7 +141,6 @@ class AddNewTodoViewController: BaseViewController {
                                  deadline: deadlineTextField.text!)
         
         try! realm.write {
-            
             realm.add(data)
             dismiss(animated: true) {
                 self.delegate?.dismissAddNewTodoViewController()

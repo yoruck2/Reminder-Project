@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TodoListTableViewCell: BaseTableViewCell {
+final class TodoListTableViewCell: BaseTableViewCell {
     
     var todoData: TodoListTable? = nil {
         didSet {
@@ -15,18 +15,18 @@ class TodoListTableViewCell: BaseTableViewCell {
         }
     }
     
-    var todoCheckButton = UIButton().then {
+    private var todoCheckButton = UIButton().then {
         $0.setImage(UIImage(systemName: "circle"), for: .normal)
         $0.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .selected)
         $0.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .highlighted)
     }
-    var todoNameLabel = UILabel().then {
+    private var todoNameLabel = UILabel().then {
         $0.textColor = .white
     }
-    var todoMemoLabel = UILabel().then {
+    private var todoMemoLabel = UILabel().then {
         $0.textColor = .lightGray
     }
-    var deadlineLabel = UILabel().then {
+    private var deadlineLabel = UILabel().then {
         $0.textColor = .lightGray
     }
     
@@ -65,6 +65,7 @@ class TodoListTableViewCell: BaseTableViewCell {
     }
 }
 
+// MARK: Date -
 //extension DateFormatter {
 //    static let krDateFormatter : DateFormatter = {
 //    let formatter = DateFormatter()

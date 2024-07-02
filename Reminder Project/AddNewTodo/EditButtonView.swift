@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditButtonView: UILabel {
+final class EditButtonView: UILabel {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

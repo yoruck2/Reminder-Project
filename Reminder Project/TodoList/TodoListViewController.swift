@@ -13,9 +13,9 @@ protocol TodoListViewDelegate {
     @objc optional func refreshTableView()
 }
 
-class TodoListViewController: BaseViewController {
+final class TodoListViewController: BaseViewController {
     
-    let rootView = TodoListView()
+    private let rootView = TodoListView()
     
     override func loadView() {
         view = rootView
