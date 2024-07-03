@@ -42,23 +42,14 @@ final class AddNewTodoViewController: BaseViewController {
         $0.backgroundColor = #colorLiteral(red: 0.1725487709, green: 0.1725491583, blue: 0.1811430752, alpha: 1)
     }
     
-    private let deadlineTextField = UITextField().then {
-        $0.placeholder = "마감일"
-        $0.backgroundColor = #colorLiteral(red: 0.1725487709, green: 0.1725491583, blue: 0.1811430752, alpha: 1)
-    }
-    private let tagEditButton = EditButtonView().then {
-        $0.text = "  태그"
-    }
-    private let priorityEditButton = EditButtonView().then {
-        $0.text = "  우선 순위"
-    }
-    private let imageEditButton = EditButtonView().then {
-        $0.text = "  이미지 추가"
-    }
+    private let deadlineButton = EditButtonView(type: .deadline)
+    private let tagEditButton = EditButtonView(type: .tag)
+    private let priorityEditButton = EditButtonView(type: .priority)
+    private let imageEditButton = EditButtonView(type: .addImage)
     
     override func configureHierarchy() {
         view.addSubview(textFieldStackView)
-        view.addSubview(deadlineTextField)
+        view.addSubview(deadlineButton)
         view.addSubview(tagEditButton)
         view.addSubview(priorityEditButton)
         view.addSubview(imageEditButton)
@@ -82,7 +73,7 @@ final class AddNewTodoViewController: BaseViewController {
             make.height.equalTo(view.safeAreaLayoutGuide).multipliedBy(0.24)
         }
         
-        deadlineTextField.snp.makeConstraints { make in
+        deadlineButton.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.top.equalTo(textFieldStackView.snp.bottom).offset(20)
             make.height.equalTo(textFieldStackView).multipliedBy(0.3)
@@ -90,7 +81,7 @@ final class AddNewTodoViewController: BaseViewController {
         
         tagEditButton.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
-            make.top.equalTo(deadlineTextField.snp.bottom).offset(20)
+            make.top.equalTo(deadlineButton.snp.bottom).offset(20)
             make.height.equalTo(textFieldStackView).multipliedBy(0.3)
         }
         priorityEditButton.snp.makeConstraints { make in
@@ -138,7 +129,7 @@ final class AddNewTodoViewController: BaseViewController {
         let realm = try! Realm()
         let data = TodoListTable(name: nameTextField.text!,
                                  memo: memoTextField.text!,
-                                 deadline: deadlineTextField.text!)
+                                 deadline: deadlineButton.titleLabel.text!)
         
         try! realm.write {
             realm.add(data)

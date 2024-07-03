@@ -89,7 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				8440A78D2C33EC2700878C22 /* .gitignore */,
-				8440A7A12C33F29C00878C22 /* TodoListTable */,
+				8440A7A12C33F29C00878C22 /* Database */,
 				8440A78F2C33EC7E00878C22 /* App */,
 				8440A7952C33EE5500878C22 /* Extension */,
 				8440A7902C33ED2800878C22 /* BaseViews */,
@@ -149,12 +149,12 @@
 			path = AddNewTodo;
 			sourceTree = "<group>";
 		};
-		8440A7A12C33F29C00878C22 /* TodoListTable */ = {
+		8440A7A12C33F29C00878C22 /* Database */ = {
 			isa = PBXGroup;
 			children = (
 				8440A7A22C33F2B300878C22 /* TodoListTable.swift */,
 			);
-			path = TodoListTable;
+			path = Database;
 			sourceTree = "<group>";
 		};
 		8440A7B02C33FE0700878C22 /* Resources */ = {
