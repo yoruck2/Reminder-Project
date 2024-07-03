@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class DatePickerViewController: BaseViewController {
+final class DateViewController: BaseViewController {
     
     private lazy var datePicker = UIDatePicker().then {
         $0.preferredDatePickerStyle = .automatic

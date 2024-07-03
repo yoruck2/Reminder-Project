@@ -12,13 +12,9 @@ import SnapKit
 import Then
 import Toast
 
-protocol AddNewTodoViewControllerDelegate: AnyObject {
-    func dismissAddNewTodoViewController()
-}
+
 
 final class AddNewTodoViewController: BaseViewController {
-    
-    weak var delegate: AddNewTodoViewControllerDelegate?
     
     private let nameTextField = UITextField().then {
         $0.placeholder = "제목"
@@ -42,10 +38,17 @@ final class AddNewTodoViewController: BaseViewController {
         $0.backgroundColor = #colorLiteral(red: 0.1725487709, green: 0.1725491583, blue: 0.1811430752, alpha: 1)
     }
     
-    private let deadlineButton = EditButtonView(type: .deadline)
+    private lazy var deadlineButton = EditButtonView(type: .deadline)
     private let tagEditButton = EditButtonView(type: .tag)
     private let priorityEditButton = EditButtonView(type: .priority)
     private let imageEditButton = EditButtonView(type: .addImage)
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.post(name: NSNotification.Name("dissmisAddNewTodo"),
+                                        object: nil,
+                                        userInfo: nil)
+    }
     
     override func configureHierarchy() {
         view.addSubview(textFieldStackView)
@@ -134,8 +137,13 @@ final class AddNewTodoViewController: BaseViewController {
         try! realm.write {
             realm.add(data)
             dismiss(animated: true) {
-                self.delegate?.dismissAddNewTodoViewController()
             }
         }
+    }
+}
+
+extension AddNewTodoViewController {
+    func editButtonTapped() {
+        
     }
 }
