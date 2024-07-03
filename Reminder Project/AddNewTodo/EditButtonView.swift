@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 import SnapKit
 import Then
 
@@ -18,29 +17,35 @@ enum EditButton: String {
 }
 
 protocol EditButtonViewDelegate {
-    func editButtonTapped()
+    func editButtonTapped(button: EditButton)
 }
 
 final class EditButtonView: BaseView {
     
-    var buttondelegate: EditButtonViewDelegate?
+    var delegate: EditButtonViewDelegate?
     
-    var handler: ((EditButton?) -> Void)?
-    
-    var buttonType = EditButton(rawValue: "")
+    var buttonType: EditButton
     var titleLabel = UILabel()
     var disclosureIndicator = UIImageView().then {
         $0.image = UIImage(systemName: "chevron.right")
     }
     
     init(type: EditButton) {
+        self.buttonType = type
         super.init(frame: .zero)
-        buttonType = type
         titleLabel.text = type.rawValue
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(editButtonTapped))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
         addGestureRecognizer(tap)
         isUserInteractionEnabled = true
+        
+        configureHierarchy()
+        configureLayout()
+        configureView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func configureHierarchy() {
@@ -67,12 +72,10 @@ final class EditButtonView: BaseView {
         layer.cornerRadius = 15
         clipsToBounds = true
     }
-}
-
-extension EditButtonView: EditButtonViewDelegate {
+    
     @objc
-    func editButtonTapped() {
-        handler?(buttonType)
+    private func handleTap() {
+        delegate?.editButtonTapped(button: buttonType)
     }
 }
 
