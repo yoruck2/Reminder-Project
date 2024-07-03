@@ -12,12 +12,19 @@ import Then
 
 final class DateViewController: BaseViewController {
     
+    var delegate: AddNewTodoViewController?
+    var dateHandler: ((Date) -> Void)?
     private lazy var datePicker = UIDatePicker().then {
-        $0.preferredDatePickerStyle = .automatic
-        $0.datePickerMode = .dateAndTime
+        $0.preferredDatePickerStyle = .wheels
+        $0.datePickerMode = .date
         $0.locale = Locale(identifier: "ko-KR")
         $0.timeZone = .autoupdatingCurrent
-        $0.addTarget(self, action: #selector(handleDatePicker(_:)), for: .valueChanged)
+//        $0.addTarget(self, action: #selector(handleDatePicker(_:)), for: .editingDidEndOnExit)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        dateHandler?(datePicker.date)
+        
     }
     
     override func configureHierarchy() {
