@@ -7,4 +7,9 @@
 
 import UIKit
 
-class 
+import SnapKit
+import Then
+
+class TagViewController: BaseViewController {
+    
+}
