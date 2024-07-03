@@ -31,6 +31,12 @@
 		8440A7C02C35940800878C22 /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7BF2C35940800878C22 /* DateViewController.swift */; };
 		8440A7C22C35AAE600878C22 /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7C12C35AAE600878C22 /* TagViewController.swift */; };
 		8440A7C42C35BD8D00878C22 /* PriorityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7C32C35BD8D00878C22 /* PriorityViewController.swift */; };
+		8440A7C62C35DA7D00878C22 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7C52C35DA7D00878C22 /* ImageViewController.swift */; };
+		8440A7C82C35E89700878C22 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7C72C35E89700878C22 /* Date+.swift */; };
+		8440A7CB2C3600A200878C22 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7CA2C3600A200878C22 /* MainViewController.swift */; };
+		8440A7CD2C3600C000878C22 /* MainCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7CC2C3600C000878C22 /* MainCollectionViewCell.swift */; };
+		8440A7D12C36039A00878C22 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7D02C36039A00878C22 /* MainView.swift */; };
+		8440A7D32C36045C00878C22 /* CollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7D22C36045C00878C22 /* CollectionView+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +62,12 @@
 		8440A7BF2C35940800878C22 /* DateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
 		8440A7C12C35AAE600878C22 /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
 		8440A7C32C35BD8D00878C22 /* PriorityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityViewController.swift; sourceTree = "<group>"; };
+		8440A7C52C35DA7D00878C22 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		8440A7C72C35E89700878C22 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		8440A7CA2C3600A200878C22 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		8440A7CC2C3600C000878C22 /* MainCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCollectionViewCell.swift; sourceTree = "<group>"; };
+		8440A7D02C36039A00878C22 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		8440A7D22C36045C00878C22 /* CollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionView+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +109,7 @@
 				8440A78F2C33EC7E00878C22 /* App */,
 				8440A7952C33EE5500878C22 /* Extension */,
 				8440A7902C33ED2800878C22 /* BaseViews */,
+				8440A7C92C35FE7500878C22 /* Main */,
 				8440A79A2C33EFB900878C22 /* TodoList */,
 				8440A79D2C33F01A00878C22 /* AddNewTodo */,
 				8440A7B02C33FE0700878C22 /* Resources */,
@@ -128,7 +141,9 @@
 		8440A7952C33EE5500878C22 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				8440A7D22C36045C00878C22 /* CollectionView+.swift */,
 				8440A7982C33EFA400878C22 /* UIView+.swift */,
+				8440A7C72C35E89700878C22 /* Date+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -151,6 +166,7 @@
 				8440A7BF2C35940800878C22 /* DateViewController.swift */,
 				8440A7C12C35AAE600878C22 /* TagViewController.swift */,
 				8440A7C32C35BD8D00878C22 /* PriorityViewController.swift */,
+				8440A7C52C35DA7D00878C22 /* ImageViewController.swift */,
 			);
 			path = AddNewTodo;
 			sourceTree = "<group>";
@@ -171,6 +187,16 @@
 				8440A7842C33EC1300878C22 /* LaunchScreen.storyboard */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		8440A7C92C35FE7500878C22 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				8440A7D02C36039A00878C22 /* MainView.swift */,
+				8440A7CA2C3600A200878C22 /* MainViewController.swift */,
+				8440A7CC2C3600C000878C22 /* MainCollectionViewCell.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,19 +286,25 @@
 				8440A7922C33EDB100878C22 /* BaseTableViewCell.swift in Sources */,
 				8440A7AD2C33F65F00878C22 /* TodoListViewController.swift in Sources */,
 				8440A77E2C33EC1200878C22 /* BaseViewController.swift in Sources */,
+				8440A7D32C36045C00878C22 /* CollectionView+.swift in Sources */,
 				8440A7B82C3448D200878C22 /* EditButtonView.swift in Sources */,
 				8440A7AB2C33F4AD00878C22 /* TodoListView.swift in Sources */,
 				8440A7C22C35AAE600878C22 /* TagViewController.swift in Sources */,
+				8440A7D12C36039A00878C22 /* MainView.swift in Sources */,
+				8440A7CD2C3600C000878C22 /* MainCollectionViewCell.swift in Sources */,
 				8440A7A32C33F2B300878C22 /* TodoListTable.swift in Sources */,
 				8440A7992C33EFA400878C22 /* UIView+.swift in Sources */,
 				8440A7942C33EE1800878C22 /* BaseView.swift in Sources */,
+				8440A7C62C35DA7D00878C22 /* ImageViewController.swift in Sources */,
 				8440A7B22C33FE1B00878C22 /* Font.swift in Sources */,
+				8440A7C82C35E89700878C22 /* Date+.swift in Sources */,
 				8440A79C2C33F01300878C22 /* AddNewTodoViewController.swift in Sources */,
 				8440A77A2C33EC1200878C22 /* AppDelegate.swift in Sources */,
 				8440A7C02C35940800878C22 /* DateViewController.swift in Sources */,
 				8440A77C2C33EC1200878C22 /* SceneDelegate.swift in Sources */,
 				8440A7972C33EF6D00878C22 /* BaseCollectionViewCell.swift in Sources */,
 				8440A7AF2C33FB5600878C22 /* TodoListTableViewCell.swift in Sources */,
+				8440A7CB2C3600A200878C22 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

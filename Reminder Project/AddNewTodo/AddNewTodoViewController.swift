@@ -6,13 +6,11 @@
 //
 
 import UIKit
-
 import RealmSwift
 import SnapKit
 import Then
 import Toast
-
-
+import PhotosUI
 
 final class AddNewTodoViewController: BaseViewController {
     
@@ -38,10 +36,21 @@ final class AddNewTodoViewController: BaseViewController {
         $0.backgroundColor = #colorLiteral(red: 0.1725487709, green: 0.1725491583, blue: 0.1811430752, alpha: 1)
     }
     
-    private lazy var deadlineButton = EditButtonView(type: .deadline)
-    private let tagEditButton = EditButtonView(type: .tag)
-    private let priorityEditButton = EditButtonView(type: .priority)
-    private let imageEditButton = EditButtonView(type: .addImage)
+    private lazy var deadlineButton = EditButtonView(type: .deadline).then {
+        $0.delegate = self
+    }
+    private lazy var tagEditButton = EditButtonView(type: .tag).then {
+        $0.delegate = self
+        $0.tintColor = .systemBlue
+    }
+    private lazy var priorityEditButton = EditButtonView(type: .priority).then {
+        $0.delegate = self
+    }
+    private lazy var imageEditButton = EditButtonView(type: .addImage).then {
+        $0.delegate = self
+    }
+    
+    private var imageView = UIImageView()
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -56,6 +65,7 @@ final class AddNewTodoViewController: BaseViewController {
         view.addSubview(tagEditButton)
         view.addSubview(priorityEditButton)
         view.addSubview(imageEditButton)
+        view.addSubview(imageView)
     }
     
     override func configureLayout() {
@@ -75,13 +85,11 @@ final class AddNewTodoViewController: BaseViewController {
             make.horizontalEdges.top.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.height.equalTo(view.safeAreaLayoutGuide).multipliedBy(0.24)
         }
-        
         deadlineButton.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.top.equalTo(textFieldStackView.snp.bottom).offset(20)
             make.height.equalTo(textFieldStackView).multipliedBy(0.3)
         }
-        
         tagEditButton.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.top.equalTo(deadlineButton.snp.bottom).offset(20)
@@ -92,15 +100,18 @@ final class AddNewTodoViewController: BaseViewController {
             make.top.equalTo(tagEditButton.snp.bottom).offset(20)
             make.height.equalTo(textFieldStackView).multipliedBy(0.3)
         }
-        
         imageEditButton.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.top.equalTo(priorityEditButton.snp.bottom).offset(20)
             make.height.equalTo(textFieldStackView).multipliedBy(0.3)
         }
+        imageView.snp.makeConstraints { make in
+            make.verticalEdges.equalTo(imageEditButton)
+            make.trailing.equalTo(imageEditButton.disclosureIndicator.snp.leading)
+            make.width.equalTo(imageView.snp.height)
+        }
     }
     
-    // TODO: 메서드로 만들고 싶은데.. 셀렉터 떔에 안됨
     override func configureView() {
         view.backgroundColor = #colorLiteral(red: 0.1098036841, green: 0.1098041013, blue: 0.1183908954, alpha: 1)
         navigationItem.title = "새로운 할 일"
@@ -142,8 +153,60 @@ final class AddNewTodoViewController: BaseViewController {
     }
 }
 
-extension AddNewTodoViewController {
-    func editButtonTapped() {
-        
+extension AddNewTodoViewController: EditButtonViewDelegate, PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        let itemProvider = results.first?.itemProvider
+        if let itemProvider = itemProvider,
+           itemProvider.canLoadObject(ofClass: UIImage.self) {
+            itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
+                DispatchQueue.main.async {
+                    self.imageView.image = image as? UIImage
+                }
+            }
+        }
+    }
+    
+    func editButtonTapped(button: EditButton) {
+        switch button {
+        case .deadline:
+            presentSheetView()
+        case .tag:
+            let nextVC = TagViewController()
+            nextVC.tagHandler = { value in
+                self.tagEditButton.titleLabel.text = "태그    #\(value)"
+            }
+            navigationController?.pushViewController(nextVC, animated: true)
+        case .priority:
+            let nextVC = PriorityViewController()
+            nextVC.priorityHandler = { value in
+                self.priorityEditButton.titleLabel.text = "우선 순위    \(value)"
+            }
+            navigationController?.pushViewController(nextVC, animated: true)
+        case .addImage:
+            var configuration = PHPickerConfiguration()
+            configuration.filter = .any(of: [.images])
+            
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = self
+            self.present(picker, animated: true, completion: nil)
+            
+        }
+    }
+    
+    func presentSheetView() {
+        let nextVC = DateViewController()
+        if let sheet = nextVC.sheetPresentationController {
+            sheet.detents = [ .custom(resolver: {
+                context in
+                return 280
+            })]
+        }
+        nextVC.delegate = self
+        nextVC.dateHandler = { value in
+            self.deadlineButton.titleLabel.text = "마감일    \(value.toString)"
+        }
+        present(nextVC, animated: true)
     }
 }
+
