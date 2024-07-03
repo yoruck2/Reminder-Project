@@ -7,8 +7,6 @@
 
 import UIKit
 
-@objc
-
 
 final class TodoListViewController: BaseViewController {
     
@@ -17,8 +15,9 @@ final class TodoListViewController: BaseViewController {
     override func loadView() {
         view = rootView
     }
-    
+
     override func configureView() {
+        view.backgroundColor = .black
         configureNavigationBar()
         rootView.handler = {
             let addNewTodoVC = AddNewTodoViewController()
