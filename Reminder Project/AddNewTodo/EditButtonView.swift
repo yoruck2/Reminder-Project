@@ -17,8 +17,17 @@ enum EditButton: String {
     case addImage = "이미지 추가"
 }
 
+protocol EditButtonViewDelegate {
+    func editButtonTapped()
+}
+
 final class EditButtonView: BaseView {
     
+    var buttondelegate: EditButtonViewDelegate?
+    
+    var handler: ((EditButton?) -> Void)?
+    
+    var buttonType = EditButton(rawValue: "")
     var titleLabel = UILabel()
     var disclosureIndicator = UIImageView().then {
         $0.image = UIImage(systemName: "chevron.right")
@@ -26,11 +35,12 @@ final class EditButtonView: BaseView {
     
     init(type: EditButton) {
         super.init(frame: .zero)
-        
-        backgroundColor = #colorLiteral(red: 0.1725487709, green: 0.1725491583, blue: 0.1811430752, alpha: 1)
-        layer.cornerRadius = 15
-        clipsToBounds = true
+        buttonType = type
         titleLabel.text = type.rawValue
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(editButtonTapped))
+        addGestureRecognizer(tap)
+        isUserInteractionEnabled = true
     }
     
     override func configureHierarchy() {
@@ -52,4 +62,43 @@ final class EditButtonView: BaseView {
         }
     }
     
+    override func configureView() {
+        backgroundColor = #colorLiteral(red: 0.1725487709, green: 0.1725491583, blue: 0.1811430752, alpha: 1)
+        layer.cornerRadius = 15
+        clipsToBounds = true
+    }
+}
+
+extension EditButtonView: EditButtonViewDelegate {
+    @objc
+    func editButtonTapped() {
+        handler?(buttonType)
+    }
+}
+
+extension EditButtonView {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        DispatchQueue.main.async {
+            self.alpha = 1.0
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear) {
+                self.alpha = 0.5
+            }
+        }
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        DispatchQueue.main.async {
+            self.alpha = 0.5
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear) {
+                self.alpha = 1.0
+            }
+        }
+    }
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        DispatchQueue.main.async {
+            self.alpha = 0.5
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear) {
+                self.alpha = 1.0
+            }
+        }
+    }
 }
