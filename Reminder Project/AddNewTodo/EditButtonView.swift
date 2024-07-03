@@ -9,6 +9,8 @@ import UIKit
 
 final class EditButtonView: UILabel {
     
+    var
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = #colorLiteral(red: 0.1725487709, green: 0.1725491583, blue: 0.1811430752, alpha: 1)

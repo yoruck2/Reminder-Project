@@ -28,6 +28,7 @@
 		8440A7B22C33FE1B00878C22 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7B12C33FE1B00878C22 /* Font.swift */; };
 		8440A7B82C3448D200878C22 /* EditButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7B72C3448D200878C22 /* EditButtonView.swift */; };
 		8440A7BB2C3460B100878C22 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 8440A7BA2C3460B100878C22 /* Toast */; };
+		8440A7C02C35940800878C22 /* DatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7BF2C35940800878C22 /* DatePickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		8440A7AE2C33FB5600878C22 /* TodoListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableViewCell.swift; sourceTree = "<group>"; };
 		8440A7B12C33FE1B00878C22 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		8440A7B72C3448D200878C22 /* EditButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditButtonView.swift; sourceTree = "<group>"; };
+		8440A7BF2C35940800878C22 /* DatePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				8440A79B2C33F01300878C22 /* AddNewTodoViewController.swift */,
+				8440A7BF2C35940800878C22 /* DatePickerViewController.swift */,
 				8440A7B72C3448D200878C22 /* EditButtonView.swift */,
 			);
 			path = AddNewTodo;
@@ -258,6 +261,7 @@
 				8440A7B22C33FE1B00878C22 /* Font.swift in Sources */,
 				8440A79C2C33F01300878C22 /* AddNewTodoViewController.swift in Sources */,
 				8440A77A2C33EC1200878C22 /* AppDelegate.swift in Sources */,
+				8440A7C02C35940800878C22 /* DatePickerViewController.swift in Sources */,
 				8440A77C2C33EC1200878C22 /* SceneDelegate.swift in Sources */,
 				8440A7972C33EF6D00878C22 /* BaseCollectionViewCell.swift in Sources */,
 				8440A7AF2C33FB5600878C22 /* TodoListTableViewCell.swift in Sources */,
