@@ -8,10 +8,7 @@
 import UIKit
 
 @objc
-protocol TodoListViewDelegate {
-    func addNewTodoButtonTapped()
-    @objc optional func refreshTableView()
-}
+
 
 final class TodoListViewController: BaseViewController {
     
@@ -19,21 +16,17 @@ final class TodoListViewController: BaseViewController {
     
     override func loadView() {
         view = rootView
-        rootView.delegate = self
-    }
-    
-    func presentAddNewTodoViewController() {
-        let addNewTodoVC = AddNewTodoViewController()
-        addNewTodoVC.delegate = self
-        let vc = UINavigationController(rootViewController: addNewTodoVC)
-        present(vc, animated: true)
     }
     
     override func configureView() {
         configureNavigationBar()
+        rootView.handler = {
+            let addNewTodoVC = AddNewTodoViewController()
+            let vc = UINavigationController(rootViewController: addNewTodoVC)
+            self.present(vc, animated: true)
+        }
     }
     private func configureNavigationBar() {
-        
         let menu = configurePullDownButton()
         let menuButton = UIBarButtonItem(title: nil,
                                          image: UIImage(systemName: "ellipsis.circle"),
@@ -52,17 +45,5 @@ final class TodoListViewController: BaseViewController {
             rootView.todoList = rootView.todoList.sorted(byKeyPath: "deadline", ascending: true)
         }
         return UIMenu(children: [DeadlineSort, titleSort])
-    }
-}
-
-extension TodoListViewController: AddNewTodoViewControllerDelegate {
-    func dismissAddNewTodoViewController() {
-        rootView.refreshTableView()
-    }
-}
-
-extension TodoListViewController: TodoListViewDelegate {
-    func addNewTodoButtonTapped() {
-        presentAddNewTodoViewController()
     }
 }

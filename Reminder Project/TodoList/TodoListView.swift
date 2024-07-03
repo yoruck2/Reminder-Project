@@ -12,7 +12,7 @@ import RealmSwift
 
 final class TodoListView: BaseView {
     
-    var delegate: TodoListViewDelegate?
+    var handler: (() -> Void)?
     
     private let realm = try! Realm()
     var todoList: Results<TodoListTable>! {
@@ -28,7 +28,7 @@ final class TodoListView: BaseView {
     }
     
     // TODO: estimated 왜않되.. ㅡ.ㅡ
-    private lazy var todoListTableView = UITableView().then {
+    lazy var todoListTableView = UITableView().then {
         $0.backgroundColor = .black
         $0.delegate = self
         $0.dataSource = self
@@ -45,10 +45,7 @@ final class TodoListView: BaseView {
     
     @objc
     func addNewTodoButtonTapped() {
-        guard let delegate else {
-            return
-        }
-        delegate.addNewTodoButtonTapped()
+        handler?()
     }
     
     override func configureHierarchy() {
@@ -77,6 +74,19 @@ final class TodoListView: BaseView {
         todoList = realm.objects(TodoListTable.self)
         let realm = try! Realm()
         print(realm.configuration.fileURL)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didDismissNotification(_:)),
+            name: NSNotification.Name("dissmisAddNewTodo"),
+            object: nil
+        )
+        
+    }
+    @objc func didDismissNotification(_ notification: Notification) {
+        DispatchQueue.main.async {
+            self.todoListTableView.reloadData()
+        }
     }
 }
 
@@ -107,11 +117,5 @@ extension TodoListView: UITableViewDelegate, UITableViewDataSource {
         delete.backgroundColor = .systemRed
         
         return UISwipeActionsConfiguration(actions:[delete])
-    }
-}
-
-extension TodoListView: TodoListViewDelegate {
-    func refreshTableView() {
-        todoListTableView.reloadData()
     }
 }
