@@ -41,14 +41,42 @@ class MainCollectionViewCell: BaseCollectionViewCell {
     override func configureLayout() {
         iconView.snp.makeConstraints { make in
             make.top.leading.equalToSuperview().inset(10)
-            make.height.width.equalTo(10)
+            make.height.width.equalTo(25)
         }
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(iconView)
-            make.top.equalTo(iconView.snp.bottom).offset(2)
+            make.top.equalTo(iconView.snp.bottom).offset(10)
         }
         todoCountLabel.snp.makeConstraints { make in
             make.top.trailing.equalToSuperview().inset(10)
+        }
+    }
+}
+
+
+extension MainCollectionViewCell {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        DispatchQueue.main.async {
+            self.alpha = 1.0
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear) {
+                self.alpha = 0.5
+            }
+        }
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        DispatchQueue.main.async {
+            self.alpha = 0.5
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear) {
+                self.alpha = 1.0
+            }
+        }
+    }
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        DispatchQueue.main.async {
+            self.alpha = 0.5
+            UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear) {
+                self.alpha = 1.0
+            }
         }
     }
 }
