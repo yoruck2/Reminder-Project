@@ -64,31 +64,3 @@ final class TodoListTableViewCell: BaseTableViewCell {
         deadlineLabel.text = todoData.deadline
     }
 }
-
-// MARK: Date -
-//extension DateFormatter {
-//    static let krDateFormatter : DateFormatter = {
-//    let formatter = DateFormatter()
-//    formatter.locale = .init(identifier: "ko_KR")
-//    return formatter
-//    }()
-//}
-
-//class MyDateFormatter {
-//    static let shared = MyDateFormatter()
-//
-//    private init(){}
-//
-//    private var dotDateFormatter: DateFormatter {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.locale = Locale.current
-//        dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
-//        return dateFormatter
-//    }
-//
-//
-//    func dotDateString(from date: Date) -> String{
-//        calendarDateFormatter.string(from: date)
-//    }
-//
-//}

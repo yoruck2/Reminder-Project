@@ -14,15 +14,7 @@ final class TodoListView: BaseView {
     
     var handler: (() -> Void)?
     
-    let realm = try! Realm()
-    var todoList: Results<TodoListTable>! {
-        didSet {
-            todoListTableView.reloadData()
-        }
-    }
-    
-    private let todoTitleLabel = UILabel().then {
-        $0.text = "전체"
+    let todoTitleLabel = UILabel().then {
         $0.font = Font.bold30
         $0.textColor = .systemBlue
     }
@@ -30,6 +22,7 @@ final class TodoListView: BaseView {
     // TODO: estimated 왜않되.. ㅡ.ㅡ
     lazy var todoListTableView = UITableView().then {
         $0.backgroundColor = .black
+        $0.separatorColor = .gray
         $0.rowHeight = 100
     }
 
@@ -68,10 +61,7 @@ final class TodoListView: BaseView {
         }
     }
     override func configureView() {
-        todoList = realm.objects(TodoListTable.self)
-        let realm = try! Realm()
-        print(realm.configuration.fileURL)
-        
+        backgroundColor = .black
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(didDismissNotification(_:)),
