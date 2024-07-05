@@ -11,20 +11,25 @@ class TodoListTable: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var name: String
     @Persisted var memo: String?
-//    @Persisted var category: String?
     @Persisted var deadline: String?
+    @Persisted var tag: String?
+    @Persisted var priority: Int?
+    @Persisted var isflaged: Bool
     @Persisted var isDone: Bool
     
     
     convenience init(name: String,
                      memo: String,
-//                     category: String,
-                     deadline: String) {
+                     deadline: String,
+                     tag: String,
+                     priority: Int,
+                     isflaged: Bool = false,
+                     isDone: Bool = false) {
         self.init()
         self.name = name
         self.memo = memo
-//        self.category = category
         self.deadline = deadline
-        self.isDone = false
+        self.tag = tag
+        self.priority = priority
     }
 }
