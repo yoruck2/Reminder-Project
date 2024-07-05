@@ -46,22 +46,28 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let category = ListCategory.allCases[indexPath.item]
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainCollectionViewCell.id, for: indexPath) as? MainCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainCollectionViewCell.id,
+                                                            for: indexPath) as? MainCollectionViewCell
         else {
             return UICollectionViewCell()
         }
+        
         switch category {
-            
-        case .Today:
-            cell.setUpCellData(category: .Today, count: 0)
-        case .Scheduled:
-            cell.setUpCellData(category: .Scheduled, count: 0)
-        case .All:
-            cell.setUpCellData(category: .All, count: 0)
-        case .Flaged:
-            cell.setUpCellData(category: .Flaged, count: 0)
-        case .Done:
-            cell.setUpCellData(category: .Done, count: 0)
+        case .today:
+            cell.listCategory = .today
+            cell.setUpCellData(count: 0)
+        case .scheduled:
+            cell.listCategory = .scheduled
+            cell.setUpCellData(count: 0)
+        case .all:
+            cell.listCategory = .all
+            cell.setUpCellData(count: 0)
+        case .flaged:
+            cell.listCategory = .flaged
+            cell.setUpCellData(count: 0)
+        case .done:
+            cell.listCategory = .done
+            cell.setUpCellData(count: 0)
         }
         
         cell.iconView.layer.cornerRadius = cell.iconView.frame.height / 2
@@ -69,6 +75,24 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        navigationController?.pushViewController(TodoListViewController(), animated: true)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainCollectionViewCell.id, 
+                                                            for: indexPath) as? MainCollectionViewCell
+        else {
+            return
+        }
+        let category = ListCategory.allCases[indexPath.item]
+        switch category {
+            
+        case .today:
+            navigationController?.pushViewController(TodoListViewController(listCategory: .today), animated: true)
+        case .scheduled:
+            navigationController?.pushViewController(TodoListViewController(listCategory: .scheduled), animated: true)
+        case .all:
+            navigationController?.pushViewController(TodoListViewController(listCategory: .all), animated: true)
+        case .flaged:
+            navigationController?.pushViewController(TodoListViewController(listCategory: .flaged), animated: true)
+        case .done:
+            navigationController?.pushViewController(TodoListViewController(listCategory: .done), animated: true)
+        }
     }
 }

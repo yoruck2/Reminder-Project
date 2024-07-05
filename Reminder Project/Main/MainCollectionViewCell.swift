@@ -11,6 +11,7 @@ import Then
 
 class MainCollectionViewCell: BaseCollectionViewCell {
     
+    var listCategory: ListCategory = .all
     let backView = UIView()
     
     let iconView = UIImageView().then {
@@ -30,11 +31,7 @@ class MainCollectionViewCell: BaseCollectionViewCell {
         configureHierarchy()
         configureLayout()
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     override func configureHierarchy() {
         contentView.addSubview(backView)
         backView.addSubview(iconView)
@@ -64,12 +61,11 @@ class MainCollectionViewCell: BaseCollectionViewCell {
         backView.layer.cornerRadius = backView.bounds.width / 2
         backView.clipsToBounds = true
     }
-    func setUpCellData(category: ListCategory, count: Int?) {
-        let attribute = category.attribute
+    func setUpCellData(count: Int?) {
+        let attribute = listCategory.attribute
         iconView.image = attribute.symbolImage
         titleLabel.text = attribute.title
         todoCountLabel.text = count?.formatted() ?? ""
         backView.backgroundColor = attribute.color
-        
     }
 }

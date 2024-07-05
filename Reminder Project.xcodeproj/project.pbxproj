@@ -39,6 +39,8 @@
 		8440A7D32C36045C00878C22 /* CollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7D22C36045C00878C22 /* CollectionView+.swift */; };
 		8440A7D52C36201900878C22 /* ListCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7D42C36201900878C22 /* ListCategory.swift */; };
 		8440A7DE2C36825100878C22 /* AddNewTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7DD2C36825100878C22 /* AddNewTodoView.swift */; };
+		8440A7E02C37C76C00878C22 /* TodoListTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7DF2C37C76C00878C22 /* TodoListTableRepository.swift */; };
+		8440A7E22C38210A00878C22 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7E12C38210A00878C22 /* String+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +74,8 @@
 		8440A7D22C36045C00878C22 /* CollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionView+.swift"; sourceTree = "<group>"; };
 		8440A7D42C36201900878C22 /* ListCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCategory.swift; sourceTree = "<group>"; };
 		8440A7DD2C36825100878C22 /* AddNewTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTodoView.swift; sourceTree = "<group>"; };
+		8440A7DF2C37C76C00878C22 /* TodoListTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableRepository.swift; sourceTree = "<group>"; };
+		8440A7E12C38210A00878C22 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,9 +139,9 @@
 			isa = PBXGroup;
 			children = (
 				8440A7932C33EE1800878C22 /* BaseView.swift */,
-				8440A77D2C33EC1200878C22 /* BaseViewController.swift */,
 				8440A7912C33EDB100878C22 /* BaseTableViewCell.swift */,
 				8440A7962C33EF6D00878C22 /* BaseCollectionViewCell.swift */,
+				8440A77D2C33EC1200878C22 /* BaseViewController.swift */,
 			);
 			path = BaseViews;
 			sourceTree = "<group>";
@@ -148,6 +152,7 @@
 				8440A7D22C36045C00878C22 /* CollectionView+.swift */,
 				8440A7982C33EFA400878C22 /* UIView+.swift */,
 				8440A7C72C35E89700878C22 /* Date+.swift */,
+				8440A7E12C38210A00878C22 /* String+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -180,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				8440A7A22C33F2B300878C22 /* TodoListTable.swift */,
+				8440A7DF2C37C76C00878C22 /* TodoListTableRepository.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -298,6 +304,7 @@
 				8440A7C22C35AAE600878C22 /* TagViewController.swift in Sources */,
 				8440A7D12C36039A00878C22 /* MainView.swift in Sources */,
 				8440A7CD2C3600C000878C22 /* MainCollectionViewCell.swift in Sources */,
+				8440A7E22C38210A00878C22 /* String+.swift in Sources */,
 				8440A7A32C33F2B300878C22 /* TodoListTable.swift in Sources */,
 				8440A7992C33EFA400878C22 /* UIView+.swift in Sources */,
 				8440A7942C33EE1800878C22 /* BaseView.swift in Sources */,
@@ -312,6 +319,7 @@
 				8440A77C2C33EC1200878C22 /* SceneDelegate.swift in Sources */,
 				8440A7972C33EF6D00878C22 /* BaseCollectionViewCell.swift in Sources */,
 				8440A7AF2C33FB5600878C22 /* TodoListTableViewCell.swift in Sources */,
+				8440A7E02C37C76C00878C22 /* TodoListTableRepository.swift in Sources */,
 				8440A7CB2C3600A200878C22 /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

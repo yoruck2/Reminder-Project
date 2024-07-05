@@ -10,10 +10,50 @@ import RealmSwift
 
 final class TodoListViewController: BaseViewController<TodoListView> {
     
-    lazy var todoList = self.rootView.todoList!
+    let listCategory: ListCategory?
+    let repository = TodoListTableRepository()
+    var todoList: Results<TodoListTable>! = .none {
+        didSet {
+            // MARK: 정렬이 바뀔때 실행 -
+            rootView.todoListTableView.reloadData()
+        }
+    }
     
+    init(listCategory: ListCategory?) {
+        self.listCategory = listCategory
+        super.init(nibName: "", bundle: .none)
+        
+        switch self.listCategory {
+        case .today:
+            rootView.todoTitleLabel.text = "오늘"
+            todoList = repository.fetchToday()
+        case .scheduled:
+            rootView.todoTitleLabel.text = "예정"
+            todoList = repository.fetchScheduled()
+        case .all:
+            rootView.todoTitleLabel.text = "전체"
+            todoList = repository.fetchAll()
+        case .flaged:
+            rootView.todoTitleLabel.text = "깃발 표시"
+            todoList = repository.fetchFlaged()
+        case .done:
+            rootView.todoTitleLabel.text = "완료됨"
+            todoList = repository.fetchDone()
+        case .none:
+            return
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // TODO: 이거 하면 정렬 기능이 안먹는다.. 이유는?
+//    lazy var todoList = self.rootView.todoList!
+
     override func configureView() {
-        view.backgroundColor = .black
+        print(repository.realm.configuration.fileURL ?? "")
+        
         configureNavigationBar()
         configureTableView()
         rootView.handler = {
@@ -28,7 +68,6 @@ final class TodoListViewController: BaseViewController<TodoListView> {
         rootView.todoListTableView.delegate = self
         rootView.todoListTableView.dataSource = self
         rootView.todoListTableView.register(TodoListTableViewCell.self, forCellReuseIdentifier: TodoListTableViewCell.id)
-        
     }
     private func configureNavigationBar() {
         let menu = configurePullDownButton()
@@ -68,9 +107,7 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .normal, title: "삭제") { [self] (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
             
-            try! rootView.realm.write {
-                rootView.realm.delete(rootView.todoList[indexPath.row])
-            }
+            repository.deleteItem(data: todoList[indexPath.row])
             success(true)
             
             tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
