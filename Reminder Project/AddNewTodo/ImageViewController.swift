@@ -8,7 +8,7 @@
 import UIKit
 import PhotosUI
 
-class ImageViewController: BaseViewController {
+class ImageViewController: UIViewController {
 
     
 }

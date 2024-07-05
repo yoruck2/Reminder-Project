@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class TagViewController: BaseViewController {
+class TagViewController: UIViewController {
     
     let tagTextField = UITextField().then {
         $0.backgroundColor = .darkGray
@@ -21,12 +21,19 @@ class TagViewController: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         tagHandler?(tagTextField.text ?? "")
     }
-
-    override func configureHierarchy() {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureHierarchy()
+        configureLayout()
+        configureView()
+    }
+    
+    func configureHierarchy() {
         view.addSubview(tagTextField)
     }
     
-    override func configureLayout() {
+    func configureLayout() {
         tagTextField.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.top.equalTo(view.safeAreaLayoutGuide).inset(40)
@@ -34,7 +41,8 @@ class TagViewController: BaseViewController {
         }
     }
     
-    override func configureView() {
+    func configureView() {
         navigationItem.title = "태그"
+        view.backgroundColor = #colorLiteral(red: 0.1725487709, green: 0.1725491583, blue: 0.1811430752, alpha: 1)
     }
 }

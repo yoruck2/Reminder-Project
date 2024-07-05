@@ -38,6 +38,7 @@
 		8440A7D12C36039A00878C22 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7D02C36039A00878C22 /* MainView.swift */; };
 		8440A7D32C36045C00878C22 /* CollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7D22C36045C00878C22 /* CollectionView+.swift */; };
 		8440A7D52C36201900878C22 /* ListCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7D42C36201900878C22 /* ListCategory.swift */; };
+		8440A7DE2C36825100878C22 /* AddNewTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7DD2C36825100878C22 /* AddNewTodoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		8440A7D02C36039A00878C22 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		8440A7D22C36045C00878C22 /* CollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionView+.swift"; sourceTree = "<group>"; };
 		8440A7D42C36201900878C22 /* ListCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCategory.swift; sourceTree = "<group>"; };
+		8440A7DD2C36825100878C22 /* AddNewTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTodoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				8440A79B2C33F01300878C22 /* AddNewTodoViewController.swift */,
+				8440A7DD2C36825100878C22 /* AddNewTodoView.swift */,
 				8440A7B72C3448D200878C22 /* EditButtonView.swift */,
 				8440A7BF2C35940800878C22 /* DateViewController.swift */,
 				8440A7C12C35AAE600878C22 /* TagViewController.swift */,
@@ -303,6 +306,7 @@
 				8440A7D52C36201900878C22 /* ListCategory.swift in Sources */,
 				8440A7C82C35E89700878C22 /* Date+.swift in Sources */,
 				8440A79C2C33F01300878C22 /* AddNewTodoViewController.swift in Sources */,
+				8440A7DE2C36825100878C22 /* AddNewTodoView.swift in Sources */,
 				8440A77A2C33EC1200878C22 /* AppDelegate.swift in Sources */,
 				8440A7C02C35940800878C22 /* DateViewController.swift in Sources */,
 				8440A77C2C33EC1200878C22 /* SceneDelegate.swift in Sources */,

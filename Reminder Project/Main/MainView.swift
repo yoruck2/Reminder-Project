@@ -8,6 +8,8 @@
 import UIKit
 
 class MainView: BaseView {
+    
+    var mainViewHandler: (() -> Void)?
 
     private let mainTitleLabel = UILabel().then {
         $0.text = "전체"
@@ -17,11 +19,17 @@ class MainView: BaseView {
     
     lazy var mainCollectionView = UICollectionView(frame: .zero,
                                                    collectionViewLayout: UICollectionView.collectionViewLayout())
+
     private lazy var addNewTodoButton = UIButton().then {
         $0.setTitle(" 새로운 할 일", for: .normal)
         $0.setTitleColor(.systemBlue, for: .normal)
         $0.setImage(UIImage(systemName: "plus.circle.fill"), for: .normal)
-//        $0.addTarget(self, action: #selector(addNewTodoButtonTapped), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(addNewTodoButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc
+    func addNewTodoButtonTapped() {
+        mainViewHandler?()
     }
     
     let addNewListButton = UIButton().then {
@@ -56,7 +64,5 @@ class MainView: BaseView {
             make.height.equalTo(40)
             make.width.equalTo(safeAreaLayoutGuide).multipliedBy(0.4)
         }
-        
     }
-    
 }

@@ -14,7 +14,7 @@ final class TodoListView: BaseView {
     
     var handler: (() -> Void)?
     
-    private let realm = try! Realm()
+    let realm = try! Realm()
     var todoList: Results<TodoListTable>! {
         didSet {
             todoListTableView.reloadData()
@@ -30,10 +30,7 @@ final class TodoListView: BaseView {
     // TODO: estimated 왜않되.. ㅡ.ㅡ
     lazy var todoListTableView = UITableView().then {
         $0.backgroundColor = .black
-        $0.delegate = self
-        $0.dataSource = self
         $0.rowHeight = 100
-        $0.register(TodoListTableViewCell.self, forCellReuseIdentifier: TodoListTableViewCell.id)
     }
 
     private lazy var addNewTodoButton = UIButton().then {
@@ -81,41 +78,10 @@ final class TodoListView: BaseView {
             name: NSNotification.Name("dissmisAddNewTodo"),
             object: nil
         )
-        
     }
     @objc func didDismissNotification(_ notification: Notification) {
         DispatchQueue.main.async {
             self.todoListTableView.reloadData()
         }
-    }
-}
-
-extension TodoListView: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        todoList.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: TodoListTableViewCell.id, for: indexPath) as? TodoListTableViewCell
-        else {
-            return UITableViewCell()
-        }
-        cell.todoData = todoList[indexPath.row]
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .normal, title: "삭제") { [self] (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            
-            try! realm.write {
-                realm.delete(todoList[indexPath.row])
-            }
-            success(true)
-            
-            tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
-        }
-        delete.backgroundColor = .systemRed
-        
-        return UISwipeActionsConfiguration(actions:[delete])
     }
 }

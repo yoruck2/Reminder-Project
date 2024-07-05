@@ -10,9 +10,11 @@ import UIKit
 import SnapKit
 import Then
 
-class PriorityViewController: BaseViewController {
+class PriorityViewController: UIViewController {
     
-    let prioritySegmentControl = UISegmentedControl(items: ["상", "중", "하"])
+    let prioritySegmentControl = UISegmentedControl(items: ["상", "중", "하"]).then {
+        $0.selectedSegmentIndex = 0
+    }
     var priorityHandler: ((String) -> Void)?
     
     // TODO: Issue -> 선택 안하고 뒤로가면 앱 터지는 현상
@@ -21,11 +23,18 @@ class PriorityViewController: BaseViewController {
         priorityHandler?(prioritySegmentControl.titleForSegment(at: selectedIndex) ?? "" )
     }
     
-    override func configureHierarchy() {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureHierarchy()
+        configureLayout()
+        configureView()
+    }
+    
+    func configureHierarchy() {
         view.addSubview(prioritySegmentControl)
     }
     
-    override func configureLayout() {
+    func configureLayout() {
         prioritySegmentControl.snp.makeConstraints { make in
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.top.equalTo(view.safeAreaLayoutGuide).inset(40)
@@ -33,7 +42,8 @@ class PriorityViewController: BaseViewController {
         }
     }
     
-    override func configureView() {
+    func configureView() {
         navigationItem.title = "우선 순위"
+        view.backgroundColor = #colorLiteral(red: 0.1725487709, green: 0.1725491583, blue: 0.1811430752, alpha: 1)
     }
 }

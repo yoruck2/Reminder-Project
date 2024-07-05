@@ -10,7 +10,7 @@ import UIKit
 class BaseCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
-        super.init(frame: .zero )
+        super.init(frame: .zero)
         configureHierarchy()
         configureLayout()
         configureView()
