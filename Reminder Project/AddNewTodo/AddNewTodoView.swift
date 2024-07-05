@@ -35,9 +35,7 @@ class AddNewTodoView: BaseView {
     }
     
     lazy var deadlineButton = EditButtonView(type: .deadline)
-    lazy var tagEditButton = EditButtonView(type: .tag).then {
-        $0.tintColor = .systemBlue
-    }
+    lazy var tagEditButton = EditButtonView(type: .tag)
     lazy var priorityEditButton = EditButtonView(type: .priority)
     lazy var imageEditButton = EditButtonView(type: .addImage)
     
@@ -89,9 +87,10 @@ class AddNewTodoView: BaseView {
             make.height.equalTo(textFieldStackView).multipliedBy(0.3)
         }
         imageView.snp.makeConstraints { make in
-            make.verticalEdges.equalTo(imageEditButton)
-            make.trailing.equalTo(imageEditButton.disclosureIndicator.snp.leading)
-            make.width.equalTo(imageView.snp.height)
+            make.horizontalEdges.equalTo(safeAreaLayoutGuide).inset(40)
+            make.top.equalTo(imageEditButton.snp.bottom).offset(20)
+            make.bottom.equalTo(safeAreaLayoutGuide).inset(20)
+            make.height.equalTo(imageView.snp.height)
         }
     }
 }

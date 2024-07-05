@@ -21,13 +21,16 @@ final class AddNewTodoViewController: BaseViewController<AddNewTodoView> {
                                         userInfo: nil)
     }
     
-    override func configureView() {
-        view.backgroundColor = #colorLiteral(red: 0.1098036841, green: 0.1098041013, blue: 0.1183908954, alpha: 1)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        rootView.backgroundColor = #colorLiteral(red: 0.1098036841, green: 0.1098041013, blue: 0.1183908954, alpha: 1)
         rootView.deadlineButton.delegate = self
         rootView.tagEditButton.delegate = self
         rootView.priorityEditButton.delegate = self
         rootView.imageEditButton.delegate = self
-        
+    }
+    
+    override func configureView() {
         navigationItem.title = "새로운 할 일"
         navigationItem.titleView?.tintColor = .white
         let cancel = UIBarButtonItem(
@@ -57,7 +60,9 @@ final class AddNewTodoViewController: BaseViewController<AddNewTodoView> {
         let realm = try! Realm()
         let data = TodoListTable(name: rootView.nameTextField.text!,
                                  memo: rootView.memoTextField.text!,
-                                 deadline: rootView.deadlineButton.titleLabel.text!)
+                                 deadline: rootView.deadlineButton.setValueLabel.text ?? "",
+                                 tag: rootView.tagEditButton.setValueLabel.text ?? "",
+                                 priority: rootView.priorityEditButton.setValueLabel.text?.toPriority ?? 0)
         try! realm.write {
             realm.add(data)
             dismiss(animated: true) {
@@ -79,38 +84,23 @@ extension AddNewTodoViewController: PHPickerViewControllerDelegate {
             }
         }
     }
-    
-    func presentSheetView() {
-        let nextVC = DateViewController()
-        if let sheet = nextVC.sheetPresentationController {
-            sheet.detents = [ .custom(resolver: {
-                context in
-                return 280
-            })]
-        }
-        nextVC.delegate = self
-        nextVC.dateHandler = { value in
-            self.rootView.deadlineButton.titleLabel.text = "\(value.toString)"
-        }
-        present(nextVC, animated: true)
-    }
 }
 
 extension AddNewTodoViewController: EditButtonViewDelegate {
     func editButtonTapped(button: EditButton) {
         switch button {
         case .deadline:
-            presentSheetView()
+            presentDateSheetView()
         case .tag:
             let nextVC = TagViewController()
             nextVC.tagHandler = { value in
-                self.rootView.tagEditButton.titleLabel.text = "태그    #\(value)"
+                self.rootView.tagEditButton.setValueLabel.text = "#\(value)"
             }
             navigationController?.pushViewController(nextVC, animated: true)
         case .priority:
             let nextVC = PriorityViewController()
             nextVC.priorityHandler = { value in
-                self.rootView.priorityEditButton.titleLabel.text = "우선 순위    \(value)"
+                self.rootView.priorityEditButton.setValueLabel.text = "\(value)"
             }
             navigationController?.pushViewController(nextVC, animated: true)
         case .addImage:
@@ -121,5 +111,20 @@ extension AddNewTodoViewController: EditButtonViewDelegate {
             picker.delegate = self
             self.present(picker, animated: true, completion: nil)
         }
+    }
+    
+    func presentDateSheetView() {
+        let nextVC = DateViewController()
+        if let sheet = nextVC.sheetPresentationController {
+            sheet.detents = [ .custom(resolver: {
+                context in
+                return 280
+            })]
+        }
+        nextVC.delegate = self
+        nextVC.dateHandler = { value in
+            self.rootView.deadlineButton.setValueLabel.text = "\(value.toString)"
+        }
+        present(nextVC, animated: true)
     }
 }

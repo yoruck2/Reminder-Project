@@ -15,7 +15,7 @@ enum EditButton: String {
     case priority = "우선 순위"
     case addImage = "이미지 추가"
 }
-
+// TODO: 오른쪽에 넣기
 protocol EditButtonViewDelegate {
     func editButtonTapped(button: EditButton)
 }
@@ -25,7 +25,11 @@ final class EditButtonView: BaseView {
     var delegate: EditButtonViewDelegate?
     
     var buttonType: EditButton
+    
     var titleLabel = UILabel()
+    var setValueLabel = UILabel().then {
+        $0.textAlignment = .right
+    }
     var disclosureIndicator = UIImageView().then {
         $0.image = UIImage(systemName: "chevron.right")
     }
@@ -43,19 +47,20 @@ final class EditButtonView: BaseView {
         configureLayout()
         configureView()
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     override func configureHierarchy() {
         addSubview(titleLabel)
+        addSubview(setValueLabel)
         addSubview(disclosureIndicator)
     }
     
     override func configureLayout() {
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(15)
+            make.trailing.equalTo(disclosureIndicator.snp.leading).offset(-5)
+            make.centerY.equalToSuperview()
+        }
+        setValueLabel.snp.makeConstraints { make in
             make.trailing.equalTo(disclosureIndicator.snp.leading).offset(-5)
             make.centerY.equalToSuperview()
         }
