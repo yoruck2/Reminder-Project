@@ -13,7 +13,9 @@ extension Date {
             .year(.defaultDigits)
             .month(.twoDigits)
             .day(.twoDigits)
+            .weekday(.abbreviated)
             .locale(Locale(identifier: "ko_KR"))
+        
         return self.formatted(myFormat)
     }
 }
