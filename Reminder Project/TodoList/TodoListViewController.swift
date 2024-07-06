@@ -51,6 +51,13 @@ final class TodoListViewController: BaseViewController<TodoListView> {
     // TODO: 이거 하면 정렬 기능이 안먹는다.. 이유는?
 //    lazy var todoList = self.rootView.todoList!
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.post(name: NSNotification.Name("dissmisAddNewTodo"),
+                                        object: nil,
+                                        userInfo: nil)
+    }
+    
     override func configureView() {
         print(repository.realm.configuration.fileURL ?? "")
         
