@@ -19,10 +19,11 @@ class TodoListTableRepository {
     lazy var todoListTable = realm.objects(TodoListTable.self)
     
     // MARK: CRUD -
-    func createItem(_ data: TodoListTable) {
+    func createItem(_ data: TodoListTable, handler: (() -> Void)) {
         do {
             try realm.write {
                 realm.add(data)
+                handler()
             }
         } catch {
             print("데이터 불러오기 실패")

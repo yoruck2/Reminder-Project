@@ -10,7 +10,6 @@ import RealmSwift
 
 final class TodoListTableViewCell: BaseTableViewCell {
     let repository = TodoListTableRepository.shared
-    let realm = try! Realm()
     
     // TODO: 이건 repository로 어떻게 옮길지 고민
     var todoData: TodoListTable? = .none {
@@ -35,7 +34,6 @@ final class TodoListTableViewCell: BaseTableViewCell {
             } else {
                 todoData?.isDone = false
             }
-            
         }
     }
     
@@ -59,6 +57,11 @@ final class TodoListTableViewCell: BaseTableViewCell {
     private var tagLabel = UILabel().then {
         $0.textColor = .link
     }
+    private var flagImageView = UIImageView().then {
+        $0.image = UIImage(systemName: "flag.fill")
+        $0.backgroundColor = .systemOrange
+        $0.isHidden = true
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -71,6 +74,8 @@ final class TodoListTableViewCell: BaseTableViewCell {
                 $0.attributedText = $0.text?.removeStrikeThrough()
             }
         }
+        
+//        if
     }
     
     override func configureHierarchy() {
@@ -80,10 +85,10 @@ final class TodoListTableViewCell: BaseTableViewCell {
         contentView.addSubview(todoMemoLabel)
         contentView.addSubview(deadlineLabel)
         contentView.addSubview(tagLabel)
+        contentView.addSubview(flagImageView)
+        
     }
     override func configureLayout() {
-        
-        
         todoCheckButton.snp.makeConstraints { make in
             make.leading.top.equalTo(contentView.safeAreaLayoutGuide).inset(10)
         }
@@ -106,6 +111,10 @@ final class TodoListTableViewCell: BaseTableViewCell {
         tagLabel.snp.makeConstraints { make in
             make.top.equalTo(deadlineLabel)
             make.leading.equalTo(deadlineLabel.snp.trailing)
+        }
+        flagImageView.snp.makeConstraints { make in
+            make.verticalEdges.trailing.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.15)
         }
     }
     override func configureView() {

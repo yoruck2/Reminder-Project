@@ -17,17 +17,18 @@ class MainViewController: BaseViewController<MainView> {
         print(#function)
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(didDismissNotification(_:)),
+            selector: #selector(reloadCollectionView(_:)),
             name: .reloadCollectionView,
             object: nil
         )
     }
-    @objc func didDismissNotification(_ notification: Notification) {
+    @objc func reloadCollectionView(_ notification: Notification) {
         DispatchQueue.main.async {
             self.rootView.mainCollectionView.reloadData()
         }
     }
     
+    // TODO: 적절한 시점에 observe를 지워주어야 한다??? 그럼 안되던데..
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         print(#function)

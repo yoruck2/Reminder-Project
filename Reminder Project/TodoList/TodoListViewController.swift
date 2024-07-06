@@ -48,6 +48,19 @@ final class TodoListViewController: BaseViewController<TodoListView> {
     
     // TODO: 이거 하면 정렬 기능이 안먹는다.. 이유는?
 //    lazy var todoList = self.rootView.todoList!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(reloadTableView),
+                                               name: .reloadTableView,
+                                               object: nil)
+    }
+    @objc func reloadTableView(_ notification: Notification) {
+        DispatchQueue.main.async {
+            self.rootView.todoListTableView.reloadData()
+        }
+    }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -110,17 +123,17 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: .none) { [self] (UIContextualAction,
-                                                                                    UIView,
-                                                                                    success: @escaping (Bool) -> Void) in
+                                                                                     UIView,
+                                                                                     success: @escaping (Bool) -> Void) in
             repository.deleteItem(data: todoList[indexPath.row])
             success(true)
             
             tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
         }
         let flag = UIContextualAction(style: .normal, title: .none) { [self] (UIContextualAction,
-                                                                           UIView,
-                                                                           success: @escaping (Bool) -> Void) in
-            //            repository.fetchFlaged()(data: todoList[indexPath.row])
+                                                                              UIView,
+                                                                              success: @escaping (Bool) -> Void) in
+//            repository.
             success(true)
             
             tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)

@@ -19,6 +19,9 @@ final class AddNewTodoViewController: BaseViewController<AddNewTodoView> {
         NotificationCenter.default.post(name: .reloadCollectionView,
                                         object: nil,
                                         userInfo: nil)
+        NotificationCenter.default.post(name: .reloadTableView,
+                                        object: nil,
+                                        userInfo: nil)
     }
     
     override func viewDidLoad() {
@@ -62,8 +65,7 @@ final class AddNewTodoViewController: BaseViewController<AddNewTodoView> {
                                  deadline: date.toString.toDate ?? Date(),
                                  tag: rootView.tagEditButton.setValueLabel.text ?? "",
                                  priority: rootView.priorityEditButton.setValueLabel.text?.toPriority ?? 0)
-        
-        repository.updateItem(data) {
+        repository.createItem(data) {
             dismiss(animated: true)
         }
     }
