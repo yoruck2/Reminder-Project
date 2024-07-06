@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
 import SnapKit
 import Then
 import Toast
@@ -58,16 +57,14 @@ final class AddNewTodoViewController: BaseViewController<AddNewTodoView> {
             self.view.makeToast("제목을 입력해주세요!")
             return
         }
-        let realm = try! Realm()
         let data = TodoListTable(name: rootView.nameTextField.text!,
                                  memo: rootView.memoTextField.text!,
                                  deadline: date.toString.toDate ?? Date(),
                                  tag: rootView.tagEditButton.setValueLabel.text ?? "",
                                  priority: rootView.priorityEditButton.setValueLabel.text?.toPriority ?? 0)
-        try! realm.write {
-            realm.add(data)
-            dismiss(animated: true) {
-            }
+        
+        repository.updateItem(data) {
+            dismiss(animated: true)
         }
     }
 }

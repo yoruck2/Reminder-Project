@@ -9,8 +9,11 @@ import UIKit
 import RealmSwift
 
 final class TodoListTableViewCell: BaseTableViewCell {
+    let repository = TodoListTableRepository.shared
     let realm = try! Realm()
-    var todoData: TodoListTable? = nil {
+    
+    // TODO: 이건 repository로 어떻게 옮길지 고민
+    var todoData: TodoListTable? = .none {
         didSet {
             configureView()
         }
@@ -21,10 +24,6 @@ final class TodoListTableViewCell: BaseTableViewCell {
         $0.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .selected)
         $0.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .highlighted)
         $0.addTarget(self, action: #selector(todoCheckButtonTapped(_:)), for: .touchUpInside)
-    } {
-        didSet {
-            print("asf")
-        }
     }
     @objc
     func todoCheckButtonTapped(_ sender: UIButton) {

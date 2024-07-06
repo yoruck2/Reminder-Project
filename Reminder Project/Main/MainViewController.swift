@@ -12,8 +12,6 @@ import Then
 
 class MainViewController: BaseViewController<MainView> {
     
-    let repository = TodoListTableRepository()
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print(#function)

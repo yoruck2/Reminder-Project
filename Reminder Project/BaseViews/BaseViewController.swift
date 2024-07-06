@@ -9,6 +9,7 @@ import UIKit
 
 class BaseViewController<RootView: UIView>: UIViewController {
     let rootView = RootView()
+    let repository = TodoListTableRepository.shared
     
     override func loadView() {
         view = rootView
