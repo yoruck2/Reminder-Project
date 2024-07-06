@@ -19,7 +19,6 @@ final class DateViewController: UIViewController {
         $0.datePickerMode = .date
         $0.locale = Locale(identifier: "ko-KR")
         $0.timeZone = .autoupdatingCurrent
-        //        $0.addTarget(self, action: #selector(handleDatePicker(_:)), for: .editingDidEndOnExit)
     }
     
     override func viewDidLoad() {
@@ -44,10 +43,5 @@ final class DateViewController: UIViewController {
     }
     func configureView() {
         view.backgroundColor = #colorLiteral(red: 0.1725487709, green: 0.1725491583, blue: 0.1811430752, alpha: 1)
-    }
-    
-    @objc
-    private func handleDatePicker(_ sender: UIDatePicker) {
-        print(sender.date)
     }
 }

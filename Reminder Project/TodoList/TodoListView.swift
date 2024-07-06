@@ -60,18 +60,4 @@ final class TodoListView: BaseView {
             make.width.equalTo(safeAreaLayoutGuide).multipliedBy(0.4)
         }
     }
-    override func configureView() {
-        backgroundColor = .black
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(didDismissNotification(_:)),
-            name: NSNotification.Name("dissmisAddNewTodo"),
-            object: nil
-        )
-    }
-    @objc func didDismissNotification(_ notification: Notification) {
-        DispatchQueue.main.async {
-            self.todoListTableView.reloadData()
-        }
-    }
 }
