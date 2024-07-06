@@ -14,6 +14,7 @@ import PhotosUI
 
 final class AddNewTodoViewController: BaseViewController<AddNewTodoView> {
     
+    var date = Date()
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.post(name: NSNotification.Name("dissmisAddNewTodo"),
@@ -60,7 +61,7 @@ final class AddNewTodoViewController: BaseViewController<AddNewTodoView> {
         let realm = try! Realm()
         let data = TodoListTable(name: rootView.nameTextField.text!,
                                  memo: rootView.memoTextField.text!,
-                                 deadline: rootView.deadlineButton.setValueLabel.text ?? "",
+                                 deadline: date.toString.toDate ?? Date(),
                                  tag: rootView.tagEditButton.setValueLabel.text ?? "",
                                  priority: rootView.priorityEditButton.setValueLabel.text?.toPriority ?? 0)
         try! realm.write {
@@ -94,7 +95,9 @@ extension AddNewTodoViewController: EditButtonViewDelegate {
         case .tag:
             let nextVC = TagViewController()
             nextVC.tagHandler = { value in
-                self.rootView.tagEditButton.setValueLabel.text = "#\(value)"
+                if value != "" {
+                    self.rootView.tagEditButton.setValueLabel.text = "#\(value)"
+                }
             }
             navigationController?.pushViewController(nextVC, animated: true)
         case .priority:
@@ -123,7 +126,8 @@ extension AddNewTodoViewController: EditButtonViewDelegate {
         }
         nextVC.delegate = self
         nextVC.dateHandler = { value in
-            self.rootView.deadlineButton.setValueLabel.text = "\(value.toString)"
+            self.date = value
+            self.rootView.deadlineButton.setValueLabel.text = value.toString
         }
         present(nextVC, animated: true)
     }

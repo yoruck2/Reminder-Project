@@ -6,12 +6,13 @@
 //
 
 import RealmSwift
+import Foundation
 
 class TodoListTable: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var name: String
     @Persisted var memo: String?
-    @Persisted var deadline: String?
+    @Persisted var deadline: Date?
     @Persisted var tag: String?
     @Persisted var priority: Int?
     @Persisted var isflaged: Bool
@@ -20,7 +21,7 @@ class TodoListTable: Object {
     
     convenience init(name: String,
                      memo: String,
-                     deadline: String,
+                     deadline: Date,
                      tag: String,
                      priority: Int,
                      isflaged: Bool = false,
