@@ -29,6 +29,7 @@ final class TodoListTableViewCell: BaseTableViewCell {
     @objc
     func todoCheckButtonTapped(_ sender: UIButton) {
         sender.isSelected.toggle()
+        layoutSubviews()
         try? todoData?.realm?.write {
             if sender.isSelected {
                 todoData?.isDone = true
@@ -39,7 +40,12 @@ final class TodoListTableViewCell: BaseTableViewCell {
         }
     }
     
-    private var priorityLabel = UILabel().then {
+    private lazy var priorityLabel = UILabel().then {
+        if todoCheckButton.isSelected {
+            $0.textColor = .red
+        } else {
+            $0.textColor = .white
+        }
         $0.textColor = .systemBlue
     }
     private var todoNameLabel = UILabel().then {
@@ -53,6 +59,19 @@ final class TodoListTableViewCell: BaseTableViewCell {
     }
     private var tagLabel = UILabel().then {
         $0.textColor = .link
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if todoCheckButton.isSelected {
+            [todoNameLabel, todoMemoLabel, deadlineLabel].forEach {
+                $0.attributedText = $0.text?.strikeThrough()
+            }
+        } else {
+            [todoNameLabel, todoMemoLabel, deadlineLabel].forEach {
+                $0.attributedText = $0.text?.removeStrikeThrough()
+            }
+        }
     }
     
     override func configureHierarchy() {

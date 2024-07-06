@@ -5,7 +5,7 @@
 //  Created by dopamint on 7/5/24.
 //
 
-import Foundation
+import UIKit
 
 extension String {
     var toDate: Date? {
@@ -29,5 +29,19 @@ extension String {
         default:
             return 4
         }
+    }
+    
+    func strikeThrough() -> NSAttributedString {
+        let attributeString = NSMutableAttributedString(string: self)
+        attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle,
+                                     value: NSUnderlineStyle.single.rawValue,
+                                     range: NSMakeRange(0, attributeString.length))
+        return attributeString
+    }
+    func removeStrikeThrough() -> NSAttributedString {
+        let attributeString = NSMutableAttributedString(string: self)
+        attributeString.removeAttribute(NSAttributedString.Key.strikethroughStyle, 
+                                        range: NSMakeRange(0, attributeString.length))
+        return attributeString
     }
 }
