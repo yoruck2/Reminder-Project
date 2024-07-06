@@ -109,7 +109,7 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .destructive, title: "삭제") { [self] (UIContextualAction,
+        let delete = UIContextualAction(style: .destructive, title: .none) { [self] (UIContextualAction,
                                                                                     UIView,
                                                                                     success: @escaping (Bool) -> Void) in
             repository.deleteItem(data: todoList[indexPath.row])
@@ -117,16 +117,19 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
             
             tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
         }
-        let flag = UIContextualAction(style: .normal, title: "🚩") { [self] (UIContextualAction,
-                                                                             UIView,
-                                                                             success: @escaping (Bool) -> Void) in
-//            repository.fetchFlaged()(data: todoList[indexPath.row])
+        let flag = UIContextualAction(style: .normal, title: .none) { [self] (UIContextualAction,
+                                                                           UIView,
+                                                                           success: @escaping (Bool) -> Void) in
+            //            repository.fetchFlaged()(data: todoList[indexPath.row])
             success(true)
             
             tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
         }
         delete.backgroundColor = .systemRed
-        flag.backgroundColor = .orange
+        flag.backgroundColor = .systemOrange
+        delete.image = UIImage(systemName: "trash.fill")
+        flag.image = UIImage(systemName: "flag.fill")
+        
         return UISwipeActionsConfiguration(actions:[delete, flag])
     }
 }

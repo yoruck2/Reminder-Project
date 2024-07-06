@@ -25,7 +25,7 @@ enum ListCategory: CaseIterable {
         case .all:
             return (symbolImage: UIImage(systemName: "tray.fill", withConfiguration: largeConfig), color: .darkGray, title: "전체")
         case .flaged:
-            return (symbolImage: UIImage(systemName: "flag.fill", withConfiguration: largeConfig), color: .systemYellow, title: "깃발 표시")
+            return (symbolImage: UIImage(systemName: "flag.fill", withConfiguration: largeConfig), color: .systemOrange, title: "깃발 표시")
         case .done:
             return (symbolImage: UIImage(systemName: "checkmark", withConfiguration: largeConfig), color: .systemGreen, title: "완료됨")
         }
