@@ -41,6 +41,7 @@
 		8440A7DE2C36825100878C22 /* AddNewTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7DD2C36825100878C22 /* AddNewTodoView.swift */; };
 		8440A7E02C37C76C00878C22 /* TodoListTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7DF2C37C76C00878C22 /* TodoListTableRepository.swift */; };
 		8440A7E22C38210A00878C22 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7E12C38210A00878C22 /* String+.swift */; };
+		8440A7E62C393B9500878C22 /* Notification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7E52C393B9500878C22 /* Notification.Name+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +77,7 @@
 		8440A7DD2C36825100878C22 /* AddNewTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTodoView.swift; sourceTree = "<group>"; };
 		8440A7DF2C37C76C00878C22 /* TodoListTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableRepository.swift; sourceTree = "<group>"; };
 		8440A7E12C38210A00878C22 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
+		8440A7E52C393B9500878C22 /* Notification.Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 		8440A7952C33EE5500878C22 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				8440A7E52C393B9500878C22 /* Notification.Name+.swift */,
 				8440A7D22C36045C00878C22 /* CollectionView+.swift */,
 				8440A7982C33EFA400878C22 /* UIView+.swift */,
 				8440A7C72C35E89700878C22 /* Date+.swift */,
@@ -309,6 +312,7 @@
 				8440A7992C33EFA400878C22 /* UIView+.swift in Sources */,
 				8440A7942C33EE1800878C22 /* BaseView.swift in Sources */,
 				8440A7C62C35DA7D00878C22 /* ImageViewController.swift in Sources */,
+				8440A7E62C393B9500878C22 /* Notification.Name+.swift in Sources */,
 				8440A7B22C33FE1B00878C22 /* Font.swift in Sources */,
 				8440A7D52C36201900878C22 /* ListCategory.swift in Sources */,
 				8440A7C82C35E89700878C22 /* Date+.swift in Sources */,

@@ -53,7 +53,7 @@ final class TodoListViewController: BaseViewController<TodoListView> {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.post(name: NSNotification.Name("dissmisAddNewTodo"),
+        NotificationCenter.default.post(name: .reloadCollectionView,
                                         object: nil,
                                         userInfo: nil)
     }

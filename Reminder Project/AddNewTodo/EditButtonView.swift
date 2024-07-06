@@ -47,7 +47,7 @@ final class EditButtonView: BaseView {
         configureLayout()
         configureView()
     }
-
+    
     override func configureHierarchy() {
         addSubview(titleLabel)
         addSubview(setValueLabel)

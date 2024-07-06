@@ -14,20 +14,26 @@ class MainViewController: BaseViewController<MainView> {
     
     let repository = TodoListTableRepository()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print(#function)
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(didDismissNotification(_:)),
-            name: NSNotification.Name("dissmisAddNewTodo"),
+            name: .reloadCollectionView,
             object: nil
         )
-
     }
     @objc func didDismissNotification(_ notification: Notification) {
         DispatchQueue.main.async {
             self.rootView.mainCollectionView.reloadData()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print(#function)
+//        NotificationCenter.default.removeObserver(self, name: .reloadCollectionView, object: nil)
     }
 
     override func configureView() {
@@ -93,11 +99,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainCollectionViewCell.id, 
-                                                            for: indexPath) as? MainCollectionViewCell
-        else {
-            return
-        }
+       
         let category = ListCategory.allCases[indexPath.item]
         switch category {
             
