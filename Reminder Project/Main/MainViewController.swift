@@ -12,6 +12,24 @@ import Then
 
 class MainViewController: BaseViewController<MainView> {
     
+    let repository = TodoListTableRepository()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didDismissNotification(_:)),
+            name: NSNotification.Name("dissmisAddNewTodo"),
+            object: nil
+        )
+
+    }
+    @objc func didDismissNotification(_ notification: Notification) {
+        DispatchQueue.main.async {
+            self.rootView.mainCollectionView.reloadData()
+        }
+    }
+
     override func configureView() {
         view.backgroundColor = .black
         configureNavigationBar()
@@ -55,19 +73,19 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         switch category {
         case .today:
             cell.listCategory = .today
-            cell.setUpCellData(count: 0)
+            cell.setUpCellData(count: repository.fetchToday().count)
         case .scheduled:
             cell.listCategory = .scheduled
-            cell.setUpCellData(count: 0)
+            cell.setUpCellData(count: repository.fetchScheduled().count)
         case .all:
             cell.listCategory = .all
-            cell.setUpCellData(count: 0)
+            cell.setUpCellData(count: repository.fetchAll().count)
         case .flaged:
             cell.listCategory = .flaged
-            cell.setUpCellData(count: 0)
+            cell.setUpCellData(count: repository.fetchFlaged().count)
         case .done:
             cell.listCategory = .done
-            cell.setUpCellData(count: 0)
+            cell.setUpCellData(count: repository.fetchDone().count)
         }
         
         cell.iconView.layer.cornerRadius = cell.iconView.frame.height / 2
