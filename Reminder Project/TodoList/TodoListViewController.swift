@@ -6,13 +6,11 @@
 //
 
 import UIKit
-import RealmSwift
 
 final class TodoListViewController: BaseViewController<TodoListView> {
     
     let listCategory: ListCategory?
-    let repository = TodoListTableRepository()
-    var todoList: Results<TodoListTable>! = .none {
+    lazy var todoList = repository.todoListTable {
         didSet {
             // MARK: 정렬이 바뀔때 실행 -
             rootView.todoListTableView.reloadData()
@@ -59,7 +57,6 @@ final class TodoListViewController: BaseViewController<TodoListView> {
     }
     
     override func configureView() {
-        print(repository.realm.configuration.fileURL ?? "")
         
         configureNavigationBar()
         configureTableView()
@@ -112,15 +109,24 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let delete = UIContextualAction(style: .normal, title: "삭제") { [self] (UIContextualAction, UIView, success: @escaping (Bool) -> Void) in
-            
+        let delete = UIContextualAction(style: .destructive, title: "삭제") { [self] (UIContextualAction,
+                                                                                    UIView,
+                                                                                    success: @escaping (Bool) -> Void) in
             repository.deleteItem(data: todoList[indexPath.row])
             success(true)
             
             tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
         }
+        let flag = UIContextualAction(style: .normal, title: "🚩") { [self] (UIContextualAction,
+                                                                             UIView,
+                                                                             success: @escaping (Bool) -> Void) in
+//            repository.fetchFlaged()(data: todoList[indexPath.row])
+            success(true)
+            
+            tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
+        }
         delete.backgroundColor = .systemRed
-        
-        return UISwipeActionsConfiguration(actions:[delete])
+        flag.backgroundColor = .orange
+        return UISwipeActionsConfiguration(actions:[delete, flag])
     }
 }
