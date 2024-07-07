@@ -113,7 +113,8 @@ final class TodoListTableViewCell: BaseTableViewCell {
         todoNameLabel.text = todoData.name
         todoMemoLabel.text = todoData.memo
         deadlineLabel.text = "\(todoData.deadline?.toString ?? "") "
-        priorityLabel.text = "\(String(repeating: "!", count: todoData.priority ?? 0)) "
+        priorityLabel.text = String(repeating: "!",
+                                    count: (todoData.priority?.toPriority ?? 0))
         if todoData.tag != "" {
             tagLabel.text = " \(todoData.tag ?? "")"
         }

@@ -74,7 +74,7 @@ final class TodoListViewController: BaseViewController<TodoListView> {
         configureNavigationBar()
         configureTableView()
         rootView.handler = {
-            let nextVC = UINavigationController(rootViewController: AddNewTodoViewController())
+            let nextVC = UINavigationController(rootViewController: TodoEditorViewController(.add))
             self.present(nextVC, animated: true)
         }
     }
@@ -119,6 +119,12 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
         }
         cell.todoData = todoList[indexPath.row]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let nextVC = TodoEditorViewController(.update)
+        nextVC.todoData = todoList[indexPath.row]
+        present(UINavigationController(rootViewController: nextVC), animated: true)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

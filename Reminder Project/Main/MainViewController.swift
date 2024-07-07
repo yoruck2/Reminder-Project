@@ -43,19 +43,13 @@ class MainViewController: BaseViewController<MainView> {
         rootView.mainCollectionView.dataSource = self
         rootView.mainCollectionView.register(MainCollectionViewCell.self, forCellWithReuseIdentifier: MainCollectionViewCell.id)
         rootView.mainViewHandler = {
-            let nextVC = AddNewTodoViewController()
+            let nextVC = TodoEditorViewController(.add)
             let vc = UINavigationController(rootViewController: nextVC)
             self.present(vc, animated: true)
         }
     }
+    // TODO: 달력 안뜸 -
     private func configureNavigationBar() {
-//        let menu = configurePullDownButton()
-//        let menuButton = UIBarButtonItem(title: nil,
-//                                         image: UIImage(systemName: "ellipsis.circle"),
-//                                         target: nil,
-//                                         action: nil,
-//                                         menu: menu)
-//        navigationItem.rightBarButtonItem = menuButton
         let calandarButton = UIBarButtonItem(title: "달력보기",
                                              image: UIImage(systemName: "calendar.circle"),
                                              target: self,
