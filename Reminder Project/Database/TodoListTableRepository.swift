@@ -22,19 +22,19 @@ class TodoListTableRepository {
     func createItem(_ data: TodoListTable, handler: (() -> Void)) {
         do {
             try realm.write {
-                realm.add(data)
+                realm.add(data, update: .modified)
                 handler()
             }
         } catch {
             print("데이터 불러오기 실패")
         }
     }
-    func  updateItem(_ data: TodoListTable, handler: (() -> Void)) {
-        try! realm.write {
-            realm.add(data)
-            handler()
-        }
-    }
+//    func  updateItem(_ data: TodoListTable, handler: (() -> Void)) {
+//        try! realm.write {
+//            realm.add(data)
+//            handler()
+//        }
+//    }
     func deleteItem(data: TodoListTable) {
         try! realm.write {
             realm.delete(data)
