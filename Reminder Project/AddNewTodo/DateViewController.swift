@@ -14,7 +14,7 @@ final class DateViewController: UIViewController {
     
     var delegate: AddNewTodoViewController?
     var dateHandler: ((Date) -> Void)?
-    private lazy var datePicker = UIDatePicker().then {
+    lazy var datePicker = UIDatePicker().then {
         $0.preferredDatePickerStyle = .wheels
         $0.datePickerMode = .date
         $0.locale = Locale(identifier: "ko-KR")

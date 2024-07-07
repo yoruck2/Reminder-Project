@@ -93,17 +93,23 @@ extension AddNewTodoViewController: EditButtonViewDelegate {
             presentDateSheetView()
         case .tag:
             let nextVC = TagViewController()
+            let tagValue = self.rootView.tagEditButton.setValueLabel
             nextVC.tagHandler = { value in
                 if value != "" {
-                    self.rootView.tagEditButton.setValueLabel.text = "#\(value)"
+                    let trimmedText = value.trimmingCharacters(in: ["#"])
+                    tagValue.text = "#\(trimmedText)"
                 }
             }
+            nextVC.tagTextField.text = tagValue.text?.trimmingCharacters(in: ["#"])
             navigationController?.pushViewController(nextVC, animated: true)
         case .priority:
             let nextVC = PriorityViewController()
+            let priorityValue = (self.rootView.priorityEditButton.setValueLabel.text?.toPriority ?? 0) - 1
             nextVC.priorityHandler = { value in
                 self.rootView.priorityEditButton.setValueLabel.text = "\(value)"
             }
+            
+            nextVC.prioritySegmentControl.selectedSegmentIndex = abs(priorityValue)
             navigationController?.pushViewController(nextVC, animated: true)
         case .addImage:
             var configuration = PHPickerConfiguration()
@@ -128,6 +134,7 @@ extension AddNewTodoViewController: EditButtonViewDelegate {
             self.date = value
             self.rootView.deadlineButton.setValueLabel.text = value.toString
         }
+        nextVC.datePicker.date = self.date
         present(nextVC, animated: true)
     }
 }

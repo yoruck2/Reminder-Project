@@ -14,6 +14,7 @@ class TagViewController: UIViewController {
     
     let tagTextField = UITextField().then {
         $0.backgroundColor = .darkGray
+        $0.becomeFirstResponder()
     }
     var tagHandler: ((String) -> Void)?
     

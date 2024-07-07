@@ -64,16 +64,6 @@ final class TodoListTableViewCell: BaseTableViewCell {
         }
     }
     
-//    func toggleFlag() {
-//        print(#function)
-//        if todoData?.isflaged == true {
-//            flagImageView.isHidden = false
-//        } else if todoData?.isflaged == false {
-//            flagImageView.isHidden = true
-//        }
-//        layoutSubviews()
-//    }
-    
     override func configureHierarchy() {
         contentView.addSubview(priorityLabel)
         contentView.addSubview(todoCheckButton)
