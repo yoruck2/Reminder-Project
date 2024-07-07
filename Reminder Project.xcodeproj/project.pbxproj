@@ -42,6 +42,9 @@
 		8440A7E02C37C76C00878C22 /* TodoListTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7DF2C37C76C00878C22 /* TodoListTableRepository.swift */; };
 		8440A7E22C38210A00878C22 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7E12C38210A00878C22 /* String+.swift */; };
 		8440A7E62C393B9500878C22 /* Notification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7E52C393B9500878C22 /* Notification.Name+.swift */; };
+		84907E682C3AB6E3006C150D /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84907E672C3AB6E3006C150D /* FileManager.swift */; };
+		84907E6B2C3AC5AA006C150D /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 84907E6A2C3AC5AA006C150D /* FSCalendar */; };
+		84907E6D2C3AC7E6006C150D /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84907E6C2C3AC7E6006C150D /* CalendarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +81,8 @@
 		8440A7DF2C37C76C00878C22 /* TodoListTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableRepository.swift; sourceTree = "<group>"; };
 		8440A7E12C38210A00878C22 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		8440A7E52C393B9500878C22 /* Notification.Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+.swift"; sourceTree = "<group>"; };
+		84907E672C3AB6E3006C150D /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
+		84907E6C2C3AC7E6006C150D /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +93,7 @@
 				8440A7BB2C3460B100878C22 /* Toast in Frameworks */,
 				8440A7A02C33F08600878C22 /* RealmSwift in Frameworks */,
 				8440A7A92C33F2D200878C22 /* Then in Frameworks */,
+				84907E6B2C3AC5AA006C150D /* FSCalendar in Frameworks */,
 				8440A7A62C33F2C600878C22 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -156,6 +162,7 @@
 				8440A7982C33EFA400878C22 /* UIView+.swift */,
 				8440A7C72C35E89700878C22 /* Date+.swift */,
 				8440A7E12C38210A00878C22 /* String+.swift */,
+				84907E672C3AB6E3006C150D /* FileManager.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -208,6 +215,7 @@
 			children = (
 				8440A7D02C36039A00878C22 /* MainView.swift */,
 				8440A7CA2C3600A200878C22 /* MainViewController.swift */,
+				84907E6C2C3AC7E6006C150D /* CalendarViewController.swift */,
 				8440A7CC2C3600C000878C22 /* MainCollectionViewCell.swift */,
 				8440A7D42C36201900878C22 /* ListCategory.swift */,
 			);
@@ -235,6 +243,7 @@
 				8440A7A52C33F2C600878C22 /* SnapKit */,
 				8440A7A82C33F2D200878C22 /* Then */,
 				8440A7BA2C3460B100878C22 /* Toast */,
+				84907E6A2C3AC5AA006C150D /* FSCalendar */,
 			);
 			productName = "Reminder Project";
 			productReference = 8440A7762C33EC1200878C22 /* Reminder Project.app */;
@@ -269,6 +278,7 @@
 				8440A7A42C33F2C600878C22 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				8440A7A72C33F2D200878C22 /* XCRemoteSwiftPackageReference "Then" */,
 				8440A7B92C3460B100878C22 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				84907E692C3AC5AA006C150D /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 8440A7772C33EC1200878C22 /* Products */;
 			projectDirPath = "";
@@ -297,6 +307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84907E6D2C3AC7E6006C150D /* CalendarViewController.swift in Sources */,
 				8440A7C42C35BD8D00878C22 /* PriorityViewController.swift in Sources */,
 				8440A7922C33EDB100878C22 /* BaseTableViewCell.swift in Sources */,
 				8440A7AD2C33F65F00878C22 /* TodoListViewController.swift in Sources */,
@@ -308,6 +319,7 @@
 				8440A7D12C36039A00878C22 /* MainView.swift in Sources */,
 				8440A7CD2C3600C000878C22 /* MainCollectionViewCell.swift in Sources */,
 				8440A7E22C38210A00878C22 /* String+.swift in Sources */,
+				84907E682C3AB6E3006C150D /* FileManager.swift in Sources */,
 				8440A7A32C33F2B300878C22 /* TodoListTable.swift in Sources */,
 				8440A7992C33EFA400878C22 /* UIView+.swift in Sources */,
 				8440A7942C33EE1800878C22 /* BaseView.swift in Sources */,
@@ -581,6 +593,14 @@
 				minimumVersion = 5.1.1;
 			};
 		};
+		84907E692C3AC5AA006C150D /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -603,6 +623,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8440A7B92C3460B100878C22 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
 			productName = Toast;
+		};
+		84907E6A2C3AC5AA006C150D /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84907E692C3AC5AA006C150D /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

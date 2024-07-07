@@ -6,14 +6,18 @@
 //
 
 import UIKit
+import PhotosUI
+
 import SnapKit
 import Then
 import Toast
-import PhotosUI
+import RealmSwift
+
 
 final class AddNewTodoViewController: BaseViewController<AddNewTodoView> {
     
     var date = Date()
+    var todoID: ObjectId?
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.post(name: .reloadCollectionView,
@@ -67,6 +71,9 @@ final class AddNewTodoViewController: BaseViewController<AddNewTodoView> {
                                  priority: rootView.priorityEditButton.setValueLabel.text?.toPriority ?? 0)
         repository.createItem(data) {
             dismiss(animated: true)
+            if let image = rootView.imageView.image {
+                FileManager.saveImageToDocument(image: image, filename: "\(data.id)")
+            }
         }
     }
 }
@@ -85,6 +92,7 @@ extension AddNewTodoViewController: PHPickerViewControllerDelegate {
         }
     }
 }
+
 
 extension AddNewTodoViewController: EditButtonViewDelegate {
     func editButtonTapped(button: EditButton) {
