@@ -12,7 +12,7 @@ import Then
 
 final class DateViewController: UIViewController {
     
-    var delegate: AddNewTodoViewController?
+    var delegate: TodoEditorViewController?
     var dateHandler: ((Date) -> Void)?
     lazy var datePicker = UIDatePicker().then {
         $0.preferredDatePickerStyle = .wheels

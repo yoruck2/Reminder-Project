@@ -14,10 +14,12 @@ import Toast
 import RealmSwift
 
 
-final class AddNewTodoViewController: BaseViewController<AddNewTodoView> {
+
+final class TodoEditorViewController: BaseViewController<AddNewTodoView> {
+    
+    var todoData: TodoListTable = TodoListTable()
     
     var date = Date()
-    var todoID: ObjectId?
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.post(name: .reloadCollectionView,
@@ -30,13 +32,26 @@ final class AddNewTodoViewController: BaseViewController<AddNewTodoView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureRootView()
+    }
+    
+    func configureRootView() {
         rootView.backgroundColor = #colorLiteral(red: 0.1098036841, green: 0.1098041013, blue: 0.1183908954, alpha: 1)
         rootView.deadlineButton.delegate = self
         rootView.tagEditButton.delegate = self
         rootView.priorityEditButton.delegate = self
         rootView.imageEditButton.delegate = self
+        
+        rootView.nameTextField.text = todoData.name
+        rootView.memoTextField.text = todoData.memo
+        rootView.deadlineButton.setValueLabel.text = todoData.deadline?.toString
+        rootView.tagEditButton.setValueLabel.text = todoData.tag
+        rootView.priorityEditButton.setValueLabel.text = todoData.priority
+        
+        rootView.imageView.image = FileManager.loadImageToDocument(filename: "\(todoData.id)")
     }
     
+    // TODO: 추가 <-> 확인 분기처리
     override func configureView() {
         navigationItem.title = "새로운 할 일"
         navigationItem.titleView?.tintColor = .white
@@ -64,21 +79,26 @@ final class AddNewTodoViewController: BaseViewController<AddNewTodoView> {
             self.view.makeToast("제목을 입력해주세요!")
             return
         }
-        let data = TodoListTable(name: rootView.nameTextField.text!,
+        
+        todoData = TodoListTable(name: rootView.nameTextField.text!,
                                  memo: rootView.memoTextField.text!,
                                  deadline: date.toString.toDate ?? Date(),
                                  tag: rootView.tagEditButton.setValueLabel.text ?? "",
-                                 priority: rootView.priorityEditButton.setValueLabel.text?.toPriority ?? 0)
-        repository.createItem(data) {
+                                 priority: rootView.priorityEditButton.setValueLabel.text ?? "")
+        
+       
+        repository.createItem(todoData) { [self] in
             dismiss(animated: true)
             if let image = rootView.imageView.image {
-                FileManager.saveImageToDocument(image: image, filename: "\(data.id)")
+                
+                print(todoData.id, "이건 저장될때")
+                FileManager.saveImageToDocument(image: image, filename: "\(todoData.id)")
             }
         }
     }
 }
 
-extension AddNewTodoViewController: PHPickerViewControllerDelegate {
+extension TodoEditorViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
         let itemProvider = results.first?.itemProvider
@@ -94,7 +114,7 @@ extension AddNewTodoViewController: PHPickerViewControllerDelegate {
 }
 
 
-extension AddNewTodoViewController: EditButtonViewDelegate {
+extension TodoEditorViewController: EditButtonViewDelegate {
     func editButtonTapped(button: EditButton) {
         switch button {
         case .deadline:
