@@ -14,16 +14,15 @@ class TodoListTable: Object {
     @Persisted var memo: String?
     @Persisted var deadline: Date?
     @Persisted var tag: String?
-    @Persisted var priority: Int?
+    @Persisted var priority: String?
     @Persisted var isFlaged: Bool
     @Persisted var isDone: Bool
-    
     
     convenience init(name: String,
                      memo: String,
                      deadline: Date,
                      tag: String,
-                     priority: Int,
+                     priority: String,
                      isflaged: Bool = false,
                      isDone: Bool = false) {
         self.init()
