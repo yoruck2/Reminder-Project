@@ -15,6 +15,7 @@ final class TodoListTableViewCell: BaseTableViewCell {
     var todoData: TodoListTable? = .none {
         didSet {
             configureView()
+            
         }
     }
     
@@ -28,21 +29,10 @@ final class TodoListTableViewCell: BaseTableViewCell {
     func todoCheckButtonTapped(_ sender: UIButton) {
         sender.isSelected.toggle()
         layoutSubviews()
-        try? todoData?.realm?.write {
-            if sender.isSelected {
-                todoData?.isDone = true
-            } else {
-                todoData?.isDone = false
-            }
-        }
+        repository.toggleIsDone(data: todoData, isSelected: sender.isSelected)
     }
     
     private lazy var priorityLabel = UILabel().then {
-        if todoCheckButton.isSelected {
-            $0.textColor = .red
-        } else {
-            $0.textColor = .white
-        }
         $0.textColor = .systemBlue
     }
     private var todoNameLabel = UILabel().then {
@@ -57,10 +47,8 @@ final class TodoListTableViewCell: BaseTableViewCell {
     private var tagLabel = UILabel().then {
         $0.textColor = .link
     }
-    private var flagImageView = UIImageView().then {
-        $0.image = UIImage(systemName: "flag.fill")
+    private lazy var flagImageView = UIImageView().then {
         $0.backgroundColor = .systemOrange
-        $0.isHidden = true
     }
     
     override func layoutSubviews() {
@@ -74,9 +62,17 @@ final class TodoListTableViewCell: BaseTableViewCell {
                 $0.attributedText = $0.text?.removeStrikeThrough()
             }
         }
-        
-//        if
     }
+    
+//    func toggleFlag() {
+//        print(#function)
+//        if todoData?.isflaged == true {
+//            flagImageView.isHidden = false
+//        } else if todoData?.isflaged == false {
+//            flagImageView.isHidden = true
+//        }
+//        layoutSubviews()
+//    }
     
     override func configureHierarchy() {
         contentView.addSubview(priorityLabel)
@@ -113,8 +109,8 @@ final class TodoListTableViewCell: BaseTableViewCell {
             make.leading.equalTo(deadlineLabel.snp.trailing)
         }
         flagImageView.snp.makeConstraints { make in
-            make.verticalEdges.trailing.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.15)
+            make.verticalEdges.trailing.equalToSuperview().inset(5)
+            make.width.equalTo(5)
         }
     }
     override func configureView() {
@@ -130,6 +126,11 @@ final class TodoListTableViewCell: BaseTableViewCell {
         priorityLabel.text = "\(String(repeating: "!", count: todoData.priority ?? 0)) "
         if todoData.tag != "" {
             tagLabel.text = " \(todoData.tag ?? "")"
+        }
+        if todoData.isFlaged == true {
+            flagImageView.isHidden = false
+        } else {
+            flagImageView.isHidden = true
         }
     }
 }

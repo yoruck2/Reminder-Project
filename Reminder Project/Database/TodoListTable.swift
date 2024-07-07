@@ -15,7 +15,7 @@ class TodoListTable: Object {
     @Persisted var deadline: Date?
     @Persisted var tag: String?
     @Persisted var priority: Int?
-    @Persisted var isflaged: Bool
+    @Persisted var isFlaged: Bool
     @Persisted var isDone: Bool
     
     

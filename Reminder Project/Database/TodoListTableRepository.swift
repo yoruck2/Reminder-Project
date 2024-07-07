@@ -18,7 +18,7 @@ class TodoListTableRepository {
     let realm = try! Realm()
     lazy var todoListTable = realm.objects(TodoListTable.self)
     
-    // MARK: CRUD -
+    // MARK: CUD -
     func createItem(_ data: TodoListTable, handler: (() -> Void)) {
         do {
             try realm.write {
@@ -71,7 +71,7 @@ class TodoListTableRepository {
     }
     func fetchFlaged() -> Results<TodoListTable> {
         let value = todoListTable.where {
-            $0.isflaged == true
+            $0.isFlaged == true
         }
         return value
     }
@@ -80,5 +80,25 @@ class TodoListTableRepository {
             $0.isDone == true
         }
         return value
+    }
+    // MARK: feature -
+    func toggleIsDone(data: TodoListTable?, isSelected: Bool) {
+        try? data?.realm?.write {
+            if isSelected {
+                data?.isDone = true
+            } else {
+                data?.isDone = false
+            }
+        }
+    }
+    func toggleFlag(data: TodoListTable?) {
+        print(#function)
+        try? data?.realm?.write {
+            if data?.isFlaged == false {
+                data?.isFlaged = true
+            } else {
+                data?.isFlaged = false
+            }
+        }
     }
 }

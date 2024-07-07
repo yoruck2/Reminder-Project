@@ -122,26 +122,35 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let sweptCell = tableView.cellForRow(at: indexPath) as! TodoListTableViewCell
         let delete = UIContextualAction(style: .destructive, title: .none) { [self] (UIContextualAction,
                                                                                      UIView,
                                                                                      success: @escaping (Bool) -> Void) in
             repository.deleteItem(data: todoList[indexPath.row])
             success(true)
-            
             tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
         }
         let flag = UIContextualAction(style: .normal, title: .none) { [self] (UIContextualAction,
                                                                               UIView,
                                                                               success: @escaping (Bool) -> Void) in
-//            repository.
+            repository.toggleFlag(data: todoList[indexPath.row])
             success(true)
-            
-            tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
+            if listCategory == .flaged {
+                tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
+            } else {
+                tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
+            }
+        }
+        if sweptCell.todoData?.isFlaged == true {
+            print("트루")
+            flag.image = UIImage(systemName: "flag.fill")
+        } else {
+            print("폴스")
+            flag.image = UIImage(systemName: "flag")
         }
         delete.backgroundColor = .systemRed
         flag.backgroundColor = .systemOrange
         delete.image = UIImage(systemName: "trash.fill")
-        flag.image = UIImage(systemName: "flag.fill")
         
         return UISwipeActionsConfiguration(actions:[delete, flag])
     }
