@@ -141,6 +141,7 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
                 tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
             }
         }
+        
         if sweptCell.todoData?.isFlaged == true {
             print("트루")
             flag.image = UIImage(systemName: "flag.fill")

@@ -9,6 +9,7 @@ import UIKit
 
 import SnapKit
 import Then
+import FSCalendar
 
 class MainViewController: BaseViewController<MainView> {
     
@@ -48,17 +49,25 @@ class MainViewController: BaseViewController<MainView> {
         }
     }
     private func configureNavigationBar() {
-        let menu = configurePullDownButton()
-        let menuButton = UIBarButtonItem(title: nil,
-                                         image: UIImage(systemName: "ellipsis.circle"),
-                                         target: nil,
-                                         action: nil,
-                                         menu: menu)
-        navigationItem.rightBarButtonItem = menuButton
+//        let menu = configurePullDownButton()
+//        let menuButton = UIBarButtonItem(title: nil,
+//                                         image: UIImage(systemName: "ellipsis.circle"),
+//                                         target: nil,
+//                                         action: nil,
+//                                         menu: menu)
+//        navigationItem.rightBarButtonItem = menuButton
+        let calandarButton = UIBarButtonItem(title: "달력보기",
+                                             image: UIImage(systemName: "calendar.circle"),
+                                             target: self,
+                                             action: #selector(calendarButtonTapped),
+                                             menu: nil)
+        navigationItem.leftBarButtonItem = calandarButton
     }
-    private func configurePullDownButton() -> UIMenu {
-       // 기능 추가 예정
-        return UIMenu(children: [])
+    @objc
+    func calendarButtonTapped() {
+        let nextVC = UINavigationController(rootViewController: CalendarViewController())
+        nextVC.modalPresentationStyle = .fullScreen
+        present(nextVC, animated: true)
     }
 }
 
