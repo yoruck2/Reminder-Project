@@ -11,13 +11,21 @@ import PhotosUI
 import SnapKit
 import Then
 import Toast
-import RealmSwift
 
 
+enum EditType {
+    case add
+    case update
+}
 
 final class TodoEditorViewController: BaseViewController<AddNewTodoView> {
     
-    var todoData: TodoListTable = TodoListTable()
+    let editType: EditType
+    var todoData: TodoListTable = TodoListTable() {
+        didSet {
+            updateTodaData()
+        }
+    }
     
     var date = Date()
     override func viewWillDisappear(_ animated: Bool) {
@@ -28,6 +36,14 @@ final class TodoEditorViewController: BaseViewController<AddNewTodoView> {
         NotificationCenter.default.post(name: .reloadTableView,
                                         object: nil,
                                         userInfo: nil)
+    }
+    
+    init(_ editType: EditType) {
+        self.editType = editType
+        super.init(nibName: .none, bundle: .none)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -42,6 +58,9 @@ final class TodoEditorViewController: BaseViewController<AddNewTodoView> {
         rootView.priorityEditButton.delegate = self
         rootView.imageEditButton.delegate = self
         
+    }
+    func updateTodaData() {
+        print(todoData)
         rootView.nameTextField.text = todoData.name
         rootView.memoTextField.text = todoData.memo
         rootView.deadlineButton.setValueLabel.text = todoData.deadline?.toString
@@ -66,6 +85,9 @@ final class TodoEditorViewController: BaseViewController<AddNewTodoView> {
             target: self,
             action: #selector(addButtonTapped))
         navigationItem.leftBarButtonItem = cancel
+        if editType == .update {
+            add.title = "확인"
+        }
         navigationItem.rightBarButtonItem = add
     }
     
@@ -80,19 +102,34 @@ final class TodoEditorViewController: BaseViewController<AddNewTodoView> {
             return
         }
         
-        todoData = TodoListTable(name: rootView.nameTextField.text!,
-                                 memo: rootView.memoTextField.text!,
-                                 deadline: date.toString.toDate ?? Date(),
-                                 tag: rootView.tagEditButton.setValueLabel.text ?? "",
-                                 priority: rootView.priorityEditButton.setValueLabel.text ?? "")
-        
-       
-        repository.createItem(todoData) { [self] in
-            dismiss(animated: true)
-            if let image = rootView.imageView.image {
+        // TODO: 사진이 안뜨는 문제
+        switch editType {
+        case .add:
+            todoData = TodoListTable(name: rootView.nameTextField.text!,
+                                     memo: rootView.memoTextField.text!,
+                                     deadline: date.toString.toDate ?? Date(),
+                                     tag: rootView.tagEditButton.setValueLabel.text ?? "",
+                                     priority: rootView.priorityEditButton.setValueLabel.text ?? "")
+            repository.createItem(todoData) { [self] in
+                dismiss(animated: true)
+                if let image = rootView.imageView.image {
+                    print(todoData.id, "이건 add")
+                    FileManager.saveImageToDocument(image: image, filename: "\(todoData.id)")
+                }
+            }
+        case .update:
+            repository.createItem(todoData) { [self] in
+                todoData.name = rootView.nameTextField.text ?? ""
+                todoData.memo = rootView.memoTextField.text
+                todoData.tag = rootView.tagEditButton.setValueLabel.text
+                todoData.deadline = rootView.deadlineButton.setValueLabel.text?.toDate
+                todoData.priority = rootView.priorityEditButton.setValueLabel.text
                 
-                print(todoData.id, "이건 저장될때")
-                FileManager.saveImageToDocument(image: image, filename: "\(todoData.id)")
+                dismiss(animated: true)
+                if let image = rootView.imageView.image {
+                    print(todoData.id, "이건 update")
+                    FileManager.saveImageToDocument(image: image, filename: "\(todoData.id)")
+                }
             }
         }
     }
@@ -112,7 +149,6 @@ extension TodoEditorViewController: PHPickerViewControllerDelegate {
         }
     }
 }
-
 
 extension TodoEditorViewController: EditButtonViewDelegate {
     func editButtonTapped(button: EditButton) {
