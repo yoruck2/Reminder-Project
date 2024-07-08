@@ -69,9 +69,9 @@ class TodoListTableRepository {
         }
         return value
     }
-    func fetchFlaged() -> Results<TodoListTable> {
+    func fetchFlagged() -> Results<TodoListTable> {
         let value = todoListTable.where {
-            $0.isFlaged == true
+            $0.isFlagged == true
         }
         return value
     }
@@ -94,11 +94,15 @@ class TodoListTableRepository {
     func toggleFlag(data: TodoListTable?) {
         print(#function)
         try? data?.realm?.write {
-            if data?.isFlaged == false {
-                data?.isFlaged = true
+            if data?.isFlagged == false {
+                data?.isFlagged = true
             } else {
-                data?.isFlaged = false
+                data?.isFlagged = false
             }
         }
+    }
+    func fetchCategory() -> [Category] {
+        let value = realm.objects(Category.self)
+        return Array(value)
     }
 }

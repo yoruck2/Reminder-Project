@@ -8,6 +8,17 @@
 import RealmSwift
 import Foundation
 
+class Category: Object {
+    @Persisted(primaryKey: true) var id: ObjectId
+    @Persisted var name: String
+    @Persisted var todolist: List<TodoListTable>
+    
+    convenience init(name: String) {
+        self.init()
+        self.name = name
+    }
+}
+
 class TodoListTable: Object {
     @Persisted(primaryKey: true) var id: ObjectId
     @Persisted var name: String
@@ -15,15 +26,17 @@ class TodoListTable: Object {
     @Persisted var deadline: Date?
     @Persisted var tag: String?
     @Persisted var priority: String?
-    @Persisted var isFlaged: Bool
+    @Persisted var isFlagged: Bool
     @Persisted var isDone: Bool
+    
+    @Persisted(originProperty: "todolist") var customCategoty: LinkingObjects<Category>
     
     convenience init(name: String,
                      memo: String,
                      deadline: Date,
                      tag: String,
                      priority: String,
-                     isflaged: Bool = false,
+                     isflagged: Bool = false,
                      isDone: Bool = false) {
         self.init()
         self.name = name
