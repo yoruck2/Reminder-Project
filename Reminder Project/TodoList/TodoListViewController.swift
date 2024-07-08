@@ -31,12 +31,18 @@ final class TodoListViewController: BaseViewController<TodoListView> {
         case .all:
             rootView.todoTitleLabel.text = "전체"
             todoList = repository.fetchAll()
-        case .flaged:
+        case .flagged:
             rootView.todoTitleLabel.text = "깃발 표시"
-            todoList = repository.fetchFlaged()
+            todoList = repository.fetchFlagged()
         case .done:
             rootView.todoTitleLabel.text = "완료됨"
             todoList = repository.fetchDone()
+            
+        case .custom:
+//            rootView.todoTitleLabel.text
+//            todoList =
+    
+            break
         case .none:
             return
         }
@@ -141,14 +147,14 @@ extension TodoListViewController: UITableViewDelegate, UITableViewDataSource {
                                                                               success: @escaping (Bool) -> Void) in
             repository.toggleFlag(data: todoList[indexPath.row])
             success(true)
-            if listCategory == .flaged {
+            if listCategory == .flagged {
                 tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
             } else {
                 tableView.reloadRows(at: [IndexPath(row: indexPath.row, section: 0)], with: .automatic)
             }
         }
         
-        if sweptCell.todoData?.isFlaged == true {
+        if sweptCell.todoData?.isFlagged == true {
             print("트루")
             flag.image = UIImage(systemName: "flag.fill")
         } else {

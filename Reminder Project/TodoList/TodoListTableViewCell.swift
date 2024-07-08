@@ -29,7 +29,7 @@ final class TodoListTableViewCell: BaseTableViewCell {
     func todoCheckButtonTapped(_ sender: UIButton) {
         sender.isSelected.toggle()
         layoutSubviews()
-        repository.toggleIsDone(data: todoData, isSelected: sender.isSelected)
+repository.toggleIsDone(data: todoData, isSelected: sender.isSelected)
     }
     
     private lazy var priorityLabel = UILabel().then {
@@ -118,7 +118,7 @@ final class TodoListTableViewCell: BaseTableViewCell {
         if todoData.tag != "" {
             tagLabel.text = " \(todoData.tag ?? "")"
         }
-        if todoData.isFlaged == true {
+        if todoData.isFlagged == true {
             flagImageView.isHidden = false
         } else {
             flagImageView.isHidden = true

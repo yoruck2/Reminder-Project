@@ -67,5 +67,8 @@ class MainCollectionViewCell: BaseCollectionViewCell {
         titleLabel.text = attribute.title
         todoCountLabel.text = count?.formatted() ?? ""
         backView.backgroundColor = attribute.color
+        if listCategory == .custom {
+            // 입력한 제목들가야됨
+        }
     }
 }

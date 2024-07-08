@@ -11,8 +11,9 @@ enum ListCategory: CaseIterable {
     case today
     case scheduled
     case all
-    case flaged
+    case flagged
     case done
+    case custom
     
     var attribute: (symbolImage: UIImage?, color: UIColor, title: String) {
         let largeConfig = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .large)
@@ -24,10 +25,12 @@ enum ListCategory: CaseIterable {
             return (symbolImage: UIImage(systemName: "calendar", withConfiguration: largeConfig), color: .systemRed, title: "예정")
         case .all:
             return (symbolImage: UIImage(systemName: "tray.fill", withConfiguration: largeConfig), color: .darkGray, title: "전체")
-        case .flaged:
+        case .flagged:
             return (symbolImage: UIImage(systemName: "flag.fill", withConfiguration: largeConfig), color: .systemOrange, title: "깃발 표시")
         case .done:
             return (symbolImage: UIImage(systemName: "checkmark", withConfiguration: largeConfig), color: .systemGreen, title: "완료됨")
+        case .custom:
+            return (symbolImage: UIImage(systemName: "list.bullet", withConfiguration: largeConfig), color: .systemBlue, title: "")
         }
     }
 }

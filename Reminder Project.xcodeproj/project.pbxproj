@@ -38,7 +38,7 @@
 		8440A7D12C36039A00878C22 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7D02C36039A00878C22 /* MainView.swift */; };
 		8440A7D32C36045C00878C22 /* CollectionView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7D22C36045C00878C22 /* CollectionView+.swift */; };
 		8440A7D52C36201900878C22 /* ListCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7D42C36201900878C22 /* ListCategory.swift */; };
-		8440A7DE2C36825100878C22 /* AddNewTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7DD2C36825100878C22 /* AddNewTodoView.swift */; };
+		8440A7DE2C36825100878C22 /* TodoEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7DD2C36825100878C22 /* TodoEditorView.swift */; };
 		8440A7E02C37C76C00878C22 /* TodoListTableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7DF2C37C76C00878C22 /* TodoListTableRepository.swift */; };
 		8440A7E22C38210A00878C22 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7E12C38210A00878C22 /* String+.swift */; };
 		8440A7E62C393B9500878C22 /* Notification.Name+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8440A7E52C393B9500878C22 /* Notification.Name+.swift */; };
@@ -77,7 +77,7 @@
 		8440A7D02C36039A00878C22 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		8440A7D22C36045C00878C22 /* CollectionView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionView+.swift"; sourceTree = "<group>"; };
 		8440A7D42C36201900878C22 /* ListCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCategory.swift; sourceTree = "<group>"; };
-		8440A7DD2C36825100878C22 /* AddNewTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTodoView.swift; sourceTree = "<group>"; };
+		8440A7DD2C36825100878C22 /* TodoEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditorView.swift; sourceTree = "<group>"; };
 		8440A7DF2C37C76C00878C22 /* TodoListTableRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListTableRepository.swift; sourceTree = "<group>"; };
 		8440A7E12C38210A00878C22 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		8440A7E52C393B9500878C22 /* Notification.Name+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification.Name+.swift"; sourceTree = "<group>"; };
@@ -121,8 +121,8 @@
 			isa = PBXGroup;
 			children = (
 				8440A78D2C33EC2700878C22 /* .gitignore */,
-				8440A7A12C33F29C00878C22 /* Database */,
 				8440A78F2C33EC7E00878C22 /* App */,
+				8440A7A12C33F29C00878C22 /* Database */,
 				8440A7952C33EE5500878C22 /* Extension */,
 				8440A7902C33ED2800878C22 /* BaseViews */,
 				8440A7C92C35FE7500878C22 /* Main */,
@@ -181,7 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				8440A79B2C33F01300878C22 /* TodoEditorViewController.swift */,
-				8440A7DD2C36825100878C22 /* AddNewTodoView.swift */,
+				8440A7DD2C36825100878C22 /* TodoEditorView.swift */,
 				8440A7B72C3448D200878C22 /* EditButtonView.swift */,
 				8440A7BF2C35940800878C22 /* DateViewController.swift */,
 				8440A7C12C35AAE600878C22 /* TagViewController.swift */,
@@ -215,8 +215,8 @@
 			children = (
 				8440A7D02C36039A00878C22 /* MainView.swift */,
 				8440A7CA2C3600A200878C22 /* MainViewController.swift */,
-				84907E6C2C3AC7E6006C150D /* CalendarViewController.swift */,
 				8440A7CC2C3600C000878C22 /* MainCollectionViewCell.swift */,
+				84907E6C2C3AC7E6006C150D /* CalendarViewController.swift */,
 				8440A7D42C36201900878C22 /* ListCategory.swift */,
 			);
 			path = Main;
@@ -329,7 +329,7 @@
 				8440A7D52C36201900878C22 /* ListCategory.swift in Sources */,
 				8440A7C82C35E89700878C22 /* Date+.swift in Sources */,
 				8440A79C2C33F01300878C22 /* TodoEditorViewController.swift in Sources */,
-				8440A7DE2C36825100878C22 /* AddNewTodoView.swift in Sources */,
+				8440A7DE2C36825100878C22 /* TodoEditorView.swift in Sources */,
 				8440A77A2C33EC1200878C22 /* AppDelegate.swift in Sources */,
 				8440A7C02C35940800878C22 /* DateViewController.swift in Sources */,
 				8440A77C2C33EC1200878C22 /* SceneDelegate.swift in Sources */,
