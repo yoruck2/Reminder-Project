@@ -12,9 +12,23 @@ import Then
 
 class PriorityViewController: UIViewController {
     
-    let prioritySegmentControl = UISegmentedControl(items: ["상", "중", "하"]).then {
-        $0.selectedSegmentIndex = 0
+    private let viewModel = PriorityViewModel()
+    lazy var prioritySegmentControl = UISegmentedControl(items: ["상", "중", "하"]).then {
+        $0.selectedSegmentIndex = viewModel.inputPriority.value
+        $0.addTarget(self, action: #selector(segmentSelected), for: .valueChanged)
     }
+    
+    @objc
+    func segmentSelected() {
+        viewModel.inputPriority.value = prioritySegmentControl.selectedSegmentIndex
+    }
+    
+    let priorityLabel = UILabel().then {
+        $0.text = ""
+        $0.font = .boldSystemFont(ofSize: 30)
+        $0.textColor = .white
+    }
+    
     var priorityHandler: ((String) -> Void)?
     
     // TODO: Issue -> 선택 안하고 뒤로가면 앱 터지는 현상
@@ -28,10 +42,20 @@ class PriorityViewController: UIViewController {
         configureHierarchy()
         configureLayout()
         configureView()
+        bindData()
+    }
+    
+    func bindData() {
+        viewModel.outputPriority.bind { value in
+            self.priorityLabel.text = value
+        }
+        
+        
     }
     
     func configureHierarchy() {
         view.addSubview(prioritySegmentControl)
+        view.addSubview(priorityLabel)
     }
     
     func configureLayout() {
@@ -39,6 +63,9 @@ class PriorityViewController: UIViewController {
             make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(20)
             make.top.equalTo(view.safeAreaLayoutGuide).inset(40)
             make.height.equalTo(20)
+        }
+        priorityLabel.snp.makeConstraints { make in
+            make.center.equalTo(view.safeAreaLayoutGuide)
         }
     }
     

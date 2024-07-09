@@ -37,9 +37,8 @@ final class TodoListViewController: BaseViewController<TodoListView> {
         case .done:
             rootView.todoTitleLabel.text = "완료됨"
             todoList = repository.fetchDone()
-            
         case .custom:
-//            rootView.todoTitleLabel.text
+            rootView.todoTitleLabel.text
 //            todoList =
     
             break

@@ -135,7 +135,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         case .done:
             navigationController?.pushViewController(TodoListViewController(listCategory: .done), animated: true)
         case .custom:
-            break
+            navigationController?.pushViewController(TodoListViewController(listCategory: .done), animated: true)
         }
     }
 }
